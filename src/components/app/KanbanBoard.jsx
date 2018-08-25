@@ -5,7 +5,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "font-awesome/css/font-awesome.min.css";
 
 import "./kanban-board.css";
-import TaskList from "./TaskList";
+import TicketList from "./TicketList";
 
 class KanbanBoard extends Component {
 
@@ -18,13 +18,13 @@ class KanbanBoard extends Component {
             <div className="kanban-board-container">
                 <Row className="kanban-board-row">
                     <Col className="kanban-board-column kanban-board-column-separator">
-                        <TaskList title="To Do"/>
+                        <TicketList title="To Do"/>
                     </Col>
                     <Col className="kanban-board-column kanban-board-column-separator">
-                        <TaskList title="In Progress"/>
+                        <TicketList title="In Progress"/>
                     </Col>
                     <Col className="kanban-board-column kanban-board-column-separator">
-                        <TaskList title="Finished"/>
+                        <TicketList title="Finished"/>
                     </Col>
                 </Row>
             </div>

@@ -1,7 +1,7 @@
 import React, {Component} from "react";
-import Task from "./Task";
+import Ticket from "./Ticket";
 
-class TaskList extends Component {
+class TicketList extends Component {
 
     constructor(props) {
         super(props);
@@ -9,14 +9,14 @@ class TaskList extends Component {
 
     render() {
         return (
-            <div className="task-list px-1 text-center">
+            <div className="ticket-list px-1 text-center">
                 <h3>{this.props.title}</h3>
-                <Task/>
-                <Task/>
+                <Ticket/>
+                <Ticket/>
             </div>
         );
     }
 
 }
 
-export default TaskList;
+export default TicketList;

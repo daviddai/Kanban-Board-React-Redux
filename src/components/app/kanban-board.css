@@ -37,8 +37,16 @@ body {
     background: linear-gradient(to bottom, #eee 0%, #ccc 50%, #eee 100%) fixed;
 }
 
-.task-list {
+.ticket-list {
     vertical-align: top;
     width: 100%;
     height: 100%;
+}
+
+.ticket-color {
+    background-color: white;
+}
+
+.task-list-top-border {
+    border-top: dashed 1px #ddd;
 }
