@@ -3,7 +3,7 @@ import {Card} from "../reusable/card/Card";
 import {CardHeader} from "../reusable/card/CardHeader";
 import {CardBody} from "../reusable/card/CardBody";
 import {CardFooter} from "../reusable/card/CardFooter";
-import Task from "./Task";
+import TaskList from "./TaskList";
 
 class Ticket extends Component {
 
@@ -26,15 +26,14 @@ class Ticket extends Component {
         if (this.state.showDetails) {
             ticketDetails = (
                 <React.Fragment>
-                    <CardBody className="border-top-0">
-                        <div className="pull-left">
-                            Card Body
+                    <CardBody className="border-top-0 py-0">
+                        <div className="text-left">
+                            <p>{this.props.description}</p>
                         </div>
                     </CardBody>
                     <CardFooter className="task-list-top-border ticket-color">
                         <div className="pull-left">
-                            <Task/>
-                            <Task/>
+                            <TaskList tasks={this.props.tasks}/>
                         </div>
                     </CardFooter>
                 </React.Fragment>
@@ -48,7 +47,7 @@ class Ticket extends Component {
                         <i className={`fa ${this.state.showDetails ? 'fa-angle-down' : 'fa-angle-right'} pr-2 font-weight-bold`}
                            onClick={this.handleArrowClicked}
                         />
-                        Card Title
+                        {this.props.title}
                     </h6>
                 </CardHeader>
                 {ticketDetails}

@@ -8,9 +8,12 @@ class Task extends Component {
 
     render() {
         return (
-            <div>
-                <input type="checkbox" className="mr-2"/>
-                Task
+            <div className="text-left">
+                <input type="checkbox"
+                       className="mr-2"
+                       defaultChecked={this.props.done}
+                />
+                {this.props.name}
                 <i className="fa fa-close pl-2 text-danger" />
             </div>
         );
