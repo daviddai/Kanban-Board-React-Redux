@@ -14,7 +14,7 @@ class Ticket extends Component {
         };
     }
 
-    handleArrowClicked = () => {
+    toggleTicketDetails = () => {
         this.setState({
            showDetails: !this.state.showDetails
         });
@@ -45,7 +45,7 @@ class Ticket extends Component {
                 <CardHeader className="border-bottom-0 ticket-color">
                     <h6 className="pull-left">
                         <i className={`fa ${this.state.showDetails ? 'fa-angle-down' : 'fa-angle-right'} pr-2 font-weight-bold`}
-                           onClick={this.handleArrowClicked}
+                           onClick={this.toggleTicketDetails}
                         />
                         {this.props.title}
                     </h6>
