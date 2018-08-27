@@ -13,6 +13,7 @@ class TicketList extends Component {
                     id={ticket.id}
                     title={ticket.title}
                     description={ticket.description}
+                    color={ticket.color}
                     tasks={ticket.tasks}
             />
         ));
