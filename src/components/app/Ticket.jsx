@@ -4,6 +4,7 @@ import {CardHeader} from "../reusable/card/CardHeader";
 import {CardBody} from "../reusable/card/CardBody";
 import {CardFooter} from "../reusable/card/CardFooter";
 import TaskList from "./TaskList";
+import marked from "marked";
 
 class Ticket extends Component {
 
@@ -28,7 +29,7 @@ class Ticket extends Component {
                 <React.Fragment>
                     <CardBody className="border-top-0 py-0">
                         <div className="text-left">
-                            <p>{this.props.description}</p>
+                            <p dangerouslySetInnerHTML={{__html:marked(this.props.description)}}></p>
                         </div>
                     </CardBody>
                     <CardFooter className="task-list-top-border ticket-color">
