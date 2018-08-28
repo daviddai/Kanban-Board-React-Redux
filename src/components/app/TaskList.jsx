@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import PropTypes from "prop-types";
 import Task from "./Task";
 
 class TaskList extends Component {
@@ -23,5 +24,11 @@ class TaskList extends Component {
     }
 
 }
+
+TaskList.propTypes = {
+    id: PropTypes.number,
+    name: PropTypes.string.isRequired,
+    done: PropTypes.bool.isRequired
+};
 
 export default TaskList;

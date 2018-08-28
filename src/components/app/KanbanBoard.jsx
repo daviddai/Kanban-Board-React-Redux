@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import {Row, Col} from "react-grid-system";
+import PropTypes from "prop-types";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "font-awesome/css/font-awesome.min.css";
@@ -44,5 +45,9 @@ class KanbanBoard extends Component {
     }
 
 }
+
+KanbanBoard.propTypes = {
+    tickets: PropTypes.array
+};
 
 export default KanbanBoard;

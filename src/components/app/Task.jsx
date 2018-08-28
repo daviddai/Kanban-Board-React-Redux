@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import PropTypes from "prop-types";
 
 class Task extends Component {
 
@@ -20,5 +21,10 @@ class Task extends Component {
     }
 
 }
+
+Task.propTypes = {
+    name: PropTypes.string.isRequired,
+    done: PropTypes.bool.isRequired
+};
 
 export default Task;

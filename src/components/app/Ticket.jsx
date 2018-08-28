@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import PropTypes from "prop-types";
 import {Card} from "../reusable/card/Card";
 import {CardHeader} from "../reusable/card/CardHeader";
 import {CardBody} from "../reusable/card/CardBody";
@@ -61,5 +62,12 @@ class Ticket extends Component {
     }
 
 }
+
+Ticket.propTypes = {
+    color: PropTypes.string.isRequired,
+    description: PropTypes.string,
+    tasks: PropTypes.array,
+    title: PropTypes.string.isRequired
+};
 
 export default Ticket;

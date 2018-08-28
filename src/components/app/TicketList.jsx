@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import PropTypes from "prop-types";
 import Ticket from "./Ticket";
 
 class TicketList extends Component {
@@ -27,5 +28,13 @@ class TicketList extends Component {
     }
 
 }
+
+TicketList.propTypes = {
+    id: PropTypes.number,
+    title: PropTypes.string.isRequired,
+    description: PropTypes.string,
+    color: PropTypes.string.isRequired,
+    tasks: PropTypes.array
+};
 
 export default TicketList;

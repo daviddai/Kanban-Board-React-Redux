@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 export const CardBody = (props) => {
     return (
@@ -6,4 +7,11 @@ export const CardBody = (props) => {
             {props.children}
         </div>
     );
+};
+
+CardBody.propTypes = {
+    children: PropTypes.oneOfType(
+        PropTypes.node,
+        PropTypes.arrayOf(PropTypes.node)
+    ).isRequired
 };

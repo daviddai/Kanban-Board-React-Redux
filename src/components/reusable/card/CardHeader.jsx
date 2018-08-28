@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 export const CardHeader = (props) => {
     return (
@@ -6,4 +7,11 @@ export const CardHeader = (props) => {
             {props.children}
         </div>
     );
+};
+
+CardHeader.propTypes = {
+    children: PropTypes.oneOfType(
+        PropTypes.node,
+        PropTypes.arrayOf(PropTypes.node)
+    ).isRequired
 };
