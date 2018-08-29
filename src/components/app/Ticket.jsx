@@ -22,6 +22,30 @@ class Ticket extends Component {
         });
     };
 
+    getTaskInputBox = () => (
+        <div className="pull-left mt-2 task-input-box">
+            <input className="task-input-field"
+                   placeholder="type and enter to add new task"
+            />
+        </div>
+    );
+
+    getTicketDetails = () => (
+        <React.Fragment>
+            <CardBody className="border-top-0 py-0">
+                <div className="text-left">
+                    <p dangerouslySetInnerHTML={{__html:marked(this.props.description)}} />
+                </div>
+            </CardBody>
+            <CardFooter className="task-list-top-border ticket-color">
+                <div>
+                    <TaskList tasks={this.props.tasks}/>
+                    {this.getTaskInputBox()}
+                </div>
+            </CardFooter>
+        </React.Fragment>
+    );
+
     render() {
         let ticketDetails;
 
@@ -30,20 +54,7 @@ class Ticket extends Component {
         };
 
         if (this.state.showDetails) {
-            ticketDetails = (
-                <React.Fragment>
-                    <CardBody className="border-top-0 py-0">
-                        <div className="text-left">
-                            <p dangerouslySetInnerHTML={{__html:marked(this.props.description)}} />
-                        </div>
-                    </CardBody>
-                    <CardFooter className="task-list-top-border ticket-color">
-                        <div className="pull-left">
-                            <TaskList tasks={this.props.tasks}/>
-                        </div>
-                    </CardFooter>
-                </React.Fragment>
-            );
+            ticketDetails = this.getTicketDetails();
         }
 
         return (
