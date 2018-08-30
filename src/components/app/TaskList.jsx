@@ -26,9 +26,7 @@ class TaskList extends Component {
 }
 
 TaskList.propTypes = {
-    id: PropTypes.number,
-    name: PropTypes.string.isRequired,
-    done: PropTypes.bool.isRequired
+    tasks: PropTypes.any
 };
 
 export default TaskList;

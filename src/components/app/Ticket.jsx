@@ -16,21 +16,30 @@ class Ticket extends Component {
         };
     }
 
+    checkInputKeyPress = (event) => {
+        if (event.key === 'Enter') {
+            this.props.taskCallbacks.add(event.target.getAttribute('ticketid'), event.target.value);
+            event.target.value = '';
+        }
+    };
+
     toggleTicketDetails = () => {
         this.setState({
            showDetails: !this.state.showDetails
         });
     };
 
-    getTaskInputBox = () => (
+    getTaskInputBox = (ticketId) => (
         <div className="pull-left mt-2 task-input-box">
             <input className="task-input-field"
                    placeholder="type and enter to add new task"
+                   onKeyPress={this.checkInputKeyPress}
+                   ticketid={ticketId}
             />
         </div>
     );
 
-    getTicketDetails = () => (
+    getTicketDetails = (ticketId) => (
         <React.Fragment>
             <CardBody className="border-top-0 py-0">
                 <div className="text-left">
@@ -40,7 +49,7 @@ class Ticket extends Component {
             <CardFooter className="task-list-top-border ticket-color">
                 <div>
                     <TaskList tasks={this.props.tasks}/>
-                    {this.getTaskInputBox()}
+                    {this.getTaskInputBox(ticketId)}
                 </div>
             </CardFooter>
         </React.Fragment>
@@ -54,7 +63,7 @@ class Ticket extends Component {
         };
 
         if (this.state.showDetails) {
-            ticketDetails = this.getTicketDetails();
+            ticketDetails = this.getTicketDetails(this.props.id);
         }
 
         return (
@@ -75,6 +84,7 @@ class Ticket extends Component {
 }
 
 Ticket.propTypes = {
+    id: PropTypes.number,
     color: PropTypes.string.isRequired,
     description: PropTypes.string,
     tasks: PropTypes.array,

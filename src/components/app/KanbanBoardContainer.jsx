@@ -16,15 +16,15 @@ class KanbanBoardContainer extends  Component {
         });
     }
 
-    addTask = (cardId, taskName) => {
+    addTask = (ticketId, taskName) => {
+        console.log(ticketId + " " + taskName);
+    };
+
+    deleteTask = (ticketId, taskId, taskIndex) => {
 
     };
 
-    deleteTask = (cardId, taskId, taskIndex) => {
-
-    };
-
-    toggleTask = (cardId, taskId, taskIndex) => {
+    toggleTask = (ticketId, taskId, taskIndex) => {
 
     };
 

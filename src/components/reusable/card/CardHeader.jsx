@@ -10,8 +10,8 @@ export const CardHeader = (props) => {
 };
 
 CardHeader.propTypes = {
-    children: PropTypes.oneOfType(
-        PropTypes.node,
-        PropTypes.arrayOf(PropTypes.node)
-    ).isRequired
+    children: PropTypes.oneOfType([
+        PropTypes.arrayOf(PropTypes.node),
+        PropTypes.node
+    ]).isRequired
 };
