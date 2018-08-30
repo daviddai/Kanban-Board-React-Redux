@@ -78,7 +78,8 @@ Ticket.propTypes = {
     color: PropTypes.string.isRequired,
     description: PropTypes.string,
     tasks: PropTypes.array,
-    title: PropTypes.string.isRequired
+    title: PropTypes.string.isRequired,
+    taskCallbacks: PropTypes.object
 };
 
 export default Ticket;

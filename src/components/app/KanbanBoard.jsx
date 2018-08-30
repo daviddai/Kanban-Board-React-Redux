@@ -23,6 +23,7 @@ class KanbanBoard extends Component {
                                     tickets={this.props.tickets.filter(
                                         ticket => ticket.status === 'todo'
                                     )}
+                                    taskCallbacks={this.props.taskCallbacks}
                         />
                     </Col>
                     <Col className="kanban-board-column kanban-board-column-separator">
@@ -30,6 +31,7 @@ class KanbanBoard extends Component {
                                     tickets={this.props.tickets.filter(
                                         ticket => ticket.status === 'in-progress'
                                     )}
+                                    taskCallbacks={this.props.taskCallbacks}
                         />
                     </Col>
                     <Col className="kanban-board-column kanban-board-column-separator">
@@ -37,6 +39,7 @@ class KanbanBoard extends Component {
                                     tickets={this.props.tickets.filter(
                                         ticket => ticket.status === 'finished'
                                     )}
+                                    taskCallbacks={this.props.taskCallbacks}
                         />
                     </Col>
                 </Row>
@@ -47,7 +50,8 @@ class KanbanBoard extends Component {
 }
 
 KanbanBoard.propTypes = {
-    tickets: PropTypes.array
+    tickets: PropTypes.array,
+    taskCallbacks: PropTypes.object
 };
 
 export default KanbanBoard;

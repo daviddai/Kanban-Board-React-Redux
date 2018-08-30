@@ -16,6 +16,7 @@ class TicketList extends Component {
                     description={ticket.description}
                     color={ticket.color}
                     tasks={ticket.tasks}
+                    taskCallbacks={this.props.taskCallbacks}
             />
         ));
 
@@ -30,11 +31,8 @@ class TicketList extends Component {
 }
 
 TicketList.propTypes = {
-    id: PropTypes.number,
-    title: PropTypes.string.isRequired,
-    description: PropTypes.string,
-    color: PropTypes.string.isRequired,
-    tasks: PropTypes.array
+    tickets: PropTypes.array,
+    taskCallbacks: PropTypes.object
 };
 
 export default TicketList;
