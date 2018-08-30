@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import KanbanBoard from "./components/app/KanbanBoard";
+import KanbanBoardContainer from "./components/app/KanbanBoardContainer";
 
 let tickets = [{
     id: 1,
@@ -23,6 +23,6 @@ let tickets = [{
 }];
 
 ReactDOM.render(
-    <KanbanBoard tickets={tickets}/>,
+    <KanbanBoardContainer tickets={tickets}/>,
     document.getElementById("app")
 );
