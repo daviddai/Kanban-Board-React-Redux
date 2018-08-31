@@ -13,7 +13,9 @@ class TaskList extends Component {
             <Task key={task.id}
                   id={task.id}
                   name={task.name}
-                  done={task.done}/>
+                  done={task.done}
+                  taskCallbacks={this.props.taskCallbacks}
+            />
         ));
 
         return (
@@ -26,7 +28,8 @@ class TaskList extends Component {
 }
 
 TaskList.propTypes = {
-    tasks: PropTypes.any
+    tasks: PropTypes.array,
+    taskCallbacks: PropTypes.object
 };
 
 export default TaskList;
