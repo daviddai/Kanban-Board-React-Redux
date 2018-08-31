@@ -12,6 +12,10 @@ class Task extends Component {
     };
 
     render() {
+        const taskTextDecoration = {
+            textDecoration: this.props.done ? 'line-through':'none'
+        };
+
         return (
             <div className="text-left">
                 <input type="checkbox"
@@ -19,7 +23,7 @@ class Task extends Component {
                        defaultChecked={this.props.done}
                        onClick={this.toggleTask}
                 />
-                {this.props.name}
+                <label style={taskTextDecoration}>{this.props.name}</label>
                 <i className="fa fa-close pl-2 text-danger" />
             </div>
         );
