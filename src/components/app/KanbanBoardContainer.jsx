@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import KanbanBoard from "./KanbanBoard";
+import update from 'react-addons-update';
 
 class KanbanBoardContainer extends  Component {
 
@@ -17,7 +18,27 @@ class KanbanBoardContainer extends  Component {
     }
 
     addTask = (ticketId, taskName) => {
-        console.log(ticketId + " " + taskName);
+        const ticketIndex = this.state.tickets.findIndex(ticket => {
+           return ticket.id == ticketId;
+        });
+
+        if (ticketIndex != -1) {
+            const newTask = {
+                id: this.state.tickets[ticketIndex].tasks.length + 1,
+                name: taskName,
+                done: false
+            };
+
+            const newTickets = update(this.state.tickets, {
+                [ticketIndex]: {
+                    tasks: {$push: [newTask]}
+                }
+            });
+
+            this.setState({
+                tickets: newTickets
+            });
+        }
     };
 
     deleteTask = (ticketId, taskId, taskIndex) => {
