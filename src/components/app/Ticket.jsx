@@ -48,7 +48,7 @@ class Ticket extends Component {
             </CardBody>
             <CardFooter className="task-list-top-border ticket-color">
                 <div>
-                    <TaskList ticketId={this.props.id} tasks={this.props.tasks}/>
+                    <TaskList ticketId={this.props.id} tasks={this.props.tasks} taskCallbacks={this.props.taskCallbacks}/>
                     {this.getTaskInputBox(ticketId)}
                 </div>
             </CardFooter>
