@@ -57,7 +57,7 @@ class KanbanBoardContainer extends  Component {
 
     toggleTask = (ticketId, taskId) => {
         const ticketIndex = this.findTicketIndex(ticketId);
-        const taskIndex = this.findTaskIndex(this.state.tickets[ticketIndex], taskId);
+        const taskIndex = this.findTaskIndex(taskId, this.state.tickets[ticketIndex]);
         const newTickets = update(this.state.tickets, {
             [ticketIndex]: {
                 tasks: {

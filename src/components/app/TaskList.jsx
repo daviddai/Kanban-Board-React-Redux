@@ -12,7 +12,7 @@ class TaskList extends Component {
         let tasks = this.props.tasks.map(task => (
             <Task key={task.id}
                   id={task.id}
-                  ticketId={task.ticketId}
+                  ticketId={this.props.ticketId}
                   name={task.name}
                   done={task.done}
                   taskCallbacks={this.props.taskCallbacks}
@@ -29,7 +29,7 @@ class TaskList extends Component {
 }
 
 TaskList.propTypes = {
-    ticketId: PropTypes.number,
+    ticketId: PropTypes.number.isRequired,
     tasks: PropTypes.array,
     taskCallbacks: PropTypes.object
 };

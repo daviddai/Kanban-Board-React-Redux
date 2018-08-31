@@ -17,9 +17,10 @@ class Task extends Component {
                 <input type="checkbox"
                        className="mr-2"
                        defaultChecked={this.props.done}
+                       onClick={this.toggleTask}
                 />
                 {this.props.name}
-                <i className="fa fa-close pl-2 text-danger" onClick={this.toggleTask} />
+                <i className="fa fa-close pl-2 text-danger" />
             </div>
         );
     }
@@ -27,8 +28,8 @@ class Task extends Component {
 }
 
 Task.propTypes = {
-    id: PropTypes.number,
-    ticketId: PropTypes.number,
+    id: PropTypes.number.isRequired,
+    ticketId: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
     done: PropTypes.bool.isRequired,
     taskCallbacks: PropTypes.object
