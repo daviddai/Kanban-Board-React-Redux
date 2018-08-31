@@ -52,12 +52,27 @@ class KanbanBoardContainer extends  Component {
     };
 
     deleteTask = (ticketId, taskId) => {
+        const ticketIndex = this.findTicketIndex(ticketId);
+        const taskIndex = this.findTaskIndex(taskId, this.state.tickets[ticketIndex])
 
+        if (ticketIndex != -1 && taskIndex != -1) {
+            const newTickets = update(this.state.tickets, {
+                [ticketIndex]: {
+                    tasks: {
+                        $splice: [[taskIndex, 1]]
+                    }
+                }
+            });
+
+            this.setState({
+                tickets: newTickets
+            });
+        }
     };
 
     toggleTask = (ticketId, taskId) => {
         const ticketIndex = this.findTicketIndex(ticketId);
-        const taskIndex = this.findTaskIndex(taskId, this.state.tickets[ticketIndex])
+        const taskIndex = this.findTaskIndex(taskId, this.state.tickets[ticketIndex]);
 
         if (ticketIndex != -1 && taskIndex != -1) {
             const newTickets = update(this.state.tickets, {

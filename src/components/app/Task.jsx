@@ -11,6 +11,10 @@ class Task extends Component {
         this.props.taskCallbacks.toggle(this.props.ticketId, this.props.id);
     };
 
+    deleteTask = () => {
+        this.props.taskCallbacks.delete(this.props.ticketId, this.props.id);
+    };
+
     render() {
         const taskTextDecoration = {
             textDecoration: this.props.done ? 'line-through':'none'
@@ -24,7 +28,9 @@ class Task extends Component {
                        onClick={this.toggleTask}
                 />
                 <label style={taskTextDecoration}>{this.props.name}</label>
-                <i className="fa fa-close pl-2 text-danger" />
+                <i className="fa fa-close pl-2 text-danger"
+                   onClick={this.deleteTask}
+                />
             </div>
         );
     }
