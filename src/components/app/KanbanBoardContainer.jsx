@@ -52,6 +52,10 @@ class KanbanBoardContainer extends  Component {
     };
 
     deleteTask = (ticketId, taskId) => {
+
+    };
+
+    toggleTask = (ticketId, taskId) => {
         const ticketIndex = this.findTicketIndex(ticketId);
         const taskIndex = this.findTaskIndex(this.state.tickets[ticketIndex], taskId);
         const newTickets = update(this.state.tickets, {
@@ -73,10 +77,6 @@ class KanbanBoardContainer extends  Component {
         });
 
         console.log(this.state.tickets);
-    };
-
-    toggleTask = (ticketId, taskId, taskIndex) => {
-
     };
 
     render() {

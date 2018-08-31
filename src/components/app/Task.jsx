@@ -7,6 +7,10 @@ class Task extends Component {
         super(props);
     }
 
+    toggleTask = () => {
+        this.props.taskCallbacks.toggle(this.props.ticketId, this.props.id);
+    };
+
     render() {
         return (
             <div className="text-left">
@@ -15,7 +19,7 @@ class Task extends Component {
                        defaultChecked={this.props.done}
                 />
                 {this.props.name}
-                <i className="fa fa-close pl-2 text-danger" />
+                <i className="fa fa-close pl-2 text-danger" onClick={this.toggleTask} />
             </div>
         );
     }
@@ -23,8 +27,11 @@ class Task extends Component {
 }
 
 Task.propTypes = {
+    id: PropTypes.number,
+    ticketId: PropTypes.number,
     name: PropTypes.string.isRequired,
-    done: PropTypes.bool.isRequired
+    done: PropTypes.bool.isRequired,
+    taskCallbacks: PropTypes.object
 };
 
 export default Task;
