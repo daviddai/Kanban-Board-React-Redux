@@ -62,3 +62,7 @@ body {
     border: dotted gainsboro medium;
     outline: none;
 }
+
+.icon:hover {
+    cursor: pointer;
+}

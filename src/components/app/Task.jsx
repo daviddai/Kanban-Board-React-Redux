@@ -28,7 +28,7 @@ class Task extends Component {
                        onClick={this.toggleTask}
                 />
                 <label style={taskTextDecoration}>{this.props.name}</label>
-                <i className="fa fa-close pl-2 text-danger"
+                <i className="fa fa-close pl-2 text-danger icon"
                    onClick={this.deleteTask}
                 />
             </div>
