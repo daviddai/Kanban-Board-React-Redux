@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import KanbanBoard from "./KanbanBoard";
+import axios from "axios";
 import update from 'react-addons-update';
 
 class KanbanBoardContainer extends  Component {
@@ -11,10 +12,25 @@ class KanbanBoardContainer extends  Component {
         };
     }
 
+    loadTickets = () => {
+        axios.get("http://localhost:8083/ticket/all")
+             .then(response => {
+                 console.log(response.data);
+                 console.log(this.props.tickets);
+
+                 this.setState(
+                     {
+                         "tickets": this.props.tickets
+                     })
+                 ;
+             })
+             .catch(error => {
+                console.log(error);
+             });
+    };
+
     componentDidMount() {
-        this.setState({
-            tickets: this.props.tickets
-        });
+        this.loadTickets();
     }
 
     findTicketIndex = (ticketId) => {
