@@ -29,11 +29,17 @@ class KanbanBoardContainer extends  Component {
                  this.setState(
                      {
                          "tickets": tickets
-                     })
-                 ;
+                     }
+                 );
              })
              .catch(error => {
-                console.log(error);
+                console.log(error.message);
+                // use fall back data
+                this.setState(
+                    {
+                        "tickets": this.props.tickets
+                    }
+                );
              });
     };
 
