@@ -15,12 +15,20 @@ class KanbanBoardContainer extends  Component {
     loadTickets = () => {
         axios.get("http://localhost:8083/ticket/all")
              .then(response => {
-                 console.log(response.data);
-                 console.log(this.props.tickets);
+                 let tickets = response.data.map(ticket => {
+                    if (ticket.status === 'todo') {
+                        ticket.color = '#3A7E28'
+                    } else if (ticket.status === 'in-progress') {
+                        ticket.color = '#BD8D31';
+                    } else {
+                        ticket.color = '';
+                    }
+                    return ticket;
+                 });
 
                  this.setState(
                      {
-                         "tickets": this.props.tickets
+                         "tickets": tickets
                      })
                  ;
              })
