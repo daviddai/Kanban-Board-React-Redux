@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import PropTypes from "prop-types";
 import {Card} from "../reusable/card/Card";
 import {CardHeader} from "../reusable/card/CardHeader";
@@ -30,7 +31,7 @@ class Ticket extends Component {
     };
 
     getTaskInputBox = (ticketId) => (
-        <div className="pull-left mt-2 task-input-box">
+        <div className="pull-left my-2 task-input-box">
             <input className="task-input-field"
                    placeholder="type and enter to add new task"
                    onKeyPress={this.checkInputKeyPress}
@@ -76,7 +77,11 @@ class Ticket extends Component {
                         {this.props.title}
                     </h6>
                 </CardHeader>
+                <ReactCSSTransitionGroup transitionName="ticket-toggle"
+                                         transitionEnterTimeout={250}
+                                         transitionLeaveTimeout={250}>
                 {ticketDetails}
+                </ReactCSSTransitionGroup>
             </Card>
         );
     }

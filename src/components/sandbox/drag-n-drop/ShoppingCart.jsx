@@ -27,6 +27,7 @@ const ShoppingCartSpec = {
                React DnD to props
  */
 let collect = (connect, monitor) => {
+    // map the react dnd state into component's props
     return {
         connectDropTarget: connect.dropTarget(),
         isOver: monitor.isOver(),
@@ -58,7 +59,7 @@ class ShoppingCart extends Component {
         };
 
         return connectDropTarget(
-            <div className="" style={style}>
+            <div className="shopping-cart" style={style}>
                 {
                     isActive ? 'Hmmmm, snack!' : 'Drag here to order!'
                 }
@@ -74,7 +75,7 @@ ShoppingCart.propTypes = {
     canDrop: PropTypes.bool.isRequired
 };
 
-export default DropTarget("snack", ShoppingCartSpec, collect)(ShoppingCart);
+export default DropTarget('snack', ShoppingCartSpec, collect)(ShoppingCart);
 
 
 
