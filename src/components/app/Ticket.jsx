@@ -42,34 +42,43 @@ class Ticket extends Component {
         </div>
     );
 
-    getTicketDetails = (ticketId) => (
-        <div id={'ticket-detail-' + ticketId}
+    getTicketDetails = (id, description, tasks, taskCallbacks) => (
+        <div id={'ticket-detail-' + id}
              className="collapse show"
         >
             <CardBody className="border-top-0 py-0">
                 <div className="text-left">
-                    <p dangerouslySetInnerHTML={{__html:marked(this.props.description)}} />
+                    <p dangerouslySetInnerHTML={{__html:marked(description)}} />
                 </div>
             </CardBody>
             <CardFooter className="task-list-top-border ticket-color">
                 <div>
-                    <TaskList ticketId={this.props.id} tasks={this.props.tasks} taskCallbacks={this.props.taskCallbacks}/>
-                    {this.getTaskInputBox(ticketId)}
+                    <TaskList ticketId={id} tasks={tasks} taskCallbacks={taskCallbacks}/>
+                    {this.getTaskInputBox(id)}
                 </div>
             </CardFooter>
         </div>
     );
 
     render() {
+        const {
+            id,
+            color,
+            description,
+            tasks,
+            title,
+            taskCallbacks
+        } = this.props;
+
         const ticketLeftSideStyle = {
-            borderLeft: this.props.color + " solid thick"
+            borderLeft: color + " solid thick"
         };
 
         return (
-            <Card id={'ticket-' + this.props.id}
+            <Card id={'ticket-' + id}
                   className="mb-2 rounded-0 border-top-0 border-right-0 border-bottom-0"
                   aria-expanded="true"
-                  aria-controls={'ticket-detail-' + this.props.id}
+                  aria-controls={'ticket-detail-' + id}
                   style={ticketLeftSideStyle}
             >
                 <CardHeader className="border-bottom-0 ticket-color">
@@ -77,13 +86,13 @@ class Ticket extends Component {
                         <i className={`fa ${this.state.showDetails ? 'fa-angle-down' : 'fa-angle-right'} pr-2 font-weight-bold`}
                            onClick={this.toggleTicketDetails}
                            data-toggle="collapse"
-                           data-target={'#ticket-detail-' + this.props.id}
-                           aria-expanded="true" aria-controls={'ticket-detail-' + this.props.id}
+                           data-target={'#ticket-detail-' + id}
+                           aria-expanded="true" aria-controls={'ticket-detail-' + id}
                         />
-                        {this.props.title}
+                        {title}
                     </h6>
                 </CardHeader>
-                {this.getTicketDetails(this.props.id)}
+                {this.getTicketDetails(id, description, tasks, taskCallbacks)}
             </Card>
         );
     }
