@@ -1,5 +1,4 @@
 import React, {Component} from "react";
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import PropTypes from "prop-types";
 import {Card} from "../reusable/card/Card";
 import {CardHeader} from "../reusable/card/CardHeader";
@@ -77,11 +76,7 @@ class Ticket extends Component {
                         {this.props.title}
                     </h6>
                 </CardHeader>
-                <ReactCSSTransitionGroup transitionName="ticket-toggle"
-                                         transitionEnterTimeout={250}
-                                         transitionLeaveTimeout={250}>
                 {ticketDetails}
-                </ReactCSSTransitionGroup>
             </Card>
         );
     }

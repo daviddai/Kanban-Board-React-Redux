@@ -66,25 +66,3 @@ body {
 .icon:hover {
     cursor: pointer;
 }
-
-.ticket-toggle-enter {
-    max-height: 0;
-    overflow: hidden;
-}
-
-.ticket-toggle-enter .ticket-toggle-active {
-    max-height: 100%;
-    overflow: hidden;
-    transition: max-height .25s ease-in;
-}
-
-.ticket-toggle-leave {
-    max-height: 100%;
-    overflow: hidden;
-}
-
-.ticket-toggle-leave .ticket-toggle-leave-active {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height .25s ease-out;
-}
