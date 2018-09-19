@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import PropTypes from "prop-types";
+import {DragSource} from 'react-dnd';
 import {Card} from "../reusable/card/Card";
 import {CardHeader} from "../reusable/card/CardHeader";
 import {CardBody} from "../reusable/card/CardBody";
@@ -9,6 +10,24 @@ import marked from "marked";
 
 import "bootstrap/dist/js/bootstrap.min";
 import "jquery/dist/jquery.min";
+
+const ticketDragSpec = {
+
+    beginDrag(props) {
+        return {
+            id: props.id
+        }
+    }
+
+};
+
+const collectDrag = (connect, monitor) => {
+
+    return {
+
+    };
+
+};
 
 class Ticket extends Component {
 
