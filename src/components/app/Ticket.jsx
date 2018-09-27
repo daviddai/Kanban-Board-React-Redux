@@ -24,7 +24,7 @@ const ticketDragSpec = {
 const collectDrag = (connect, monitor) => {
 
     return {
-
+        connectDragSource: connect.dragSource()
     };
 
 };
@@ -86,33 +86,36 @@ class Ticket extends Component {
             description,
             tasks,
             title,
-            taskCallbacks
+            taskCallbacks,
+            connectDragSource
         } = this.props;
 
         const ticketLeftSideStyle = {
             borderLeft: color + " solid thick"
         };
 
-        return (
-            <Card id={'ticket-' + id}
-                  className="mb-2 rounded-0 border-top-0 border-right-0 border-bottom-0"
-                  aria-expanded="true"
-                  aria-controls={'ticket-detail-' + id}
-                  style={ticketLeftSideStyle}
-            >
-                <CardHeader className="border-bottom-0 ticket-color">
-                    <h6 className="pull-left">
-                        <i className={`fa ${this.state.showDetails ? 'fa-angle-down' : 'fa-angle-right'} pr-2 font-weight-bold`}
-                           onClick={this.toggleTicketDetails}
-                           data-toggle="collapse"
-                           data-target={'#ticket-detail-' + id}
-                           aria-expanded="true" aria-controls={'ticket-detail-' + id}
-                        />
-                        {title}
-                    </h6>
-                </CardHeader>
-                {this.getTicketDetails(id, description, tasks, taskCallbacks)}
-            </Card>
+        return connectDragSource(
+            <div>
+                <Card id={'ticket-' + id}
+                      className="mb-2 rounded-0 border-top-0 border-right-0 border-bottom-0"
+                      aria-expanded="true"
+                      aria-controls={'ticket-detail-' + id}
+                      style={ticketLeftSideStyle}
+                >
+                    <CardHeader className="border-bottom-0 ticket-color">
+                        <h6 className="pull-left">
+                            <i className={`fa ${this.state.showDetails ? 'fa-angle-down' : 'fa-angle-right'} pr-2 font-weight-bold`}
+                               onClick={this.toggleTicketDetails}
+                               data-toggle="collapse"
+                               data-target={'#ticket-detail-' + id}
+                               aria-expanded="true" aria-controls={'ticket-detail-' + id}
+                            />
+                            {title}
+                        </h6>
+                    </CardHeader>
+                    {this.getTicketDetails(id, description, tasks, taskCallbacks)}
+                </Card>
+            </div>
         );
     }
 
@@ -124,7 +127,8 @@ Ticket.propTypes = {
     description: PropTypes.string,
     tasks: PropTypes.array,
     title: PropTypes.string.isRequired,
-    taskCallbacks: PropTypes.object
+    taskCallbacks: PropTypes.object,
+    connectDragSource: PropTypes.func.isRequired
 };
 
-export default Ticket;
+export default DragSource('card', ticketDragSpec, collectDrag)(Ticket);

@@ -1,6 +1,8 @@
 import React, {Component} from "react";
 import {Row, Col} from "react-grid-system";
 import PropTypes from "prop-types";
+import {DragDropContext} from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "font-awesome/css/font-awesome.min.css";
@@ -54,4 +56,4 @@ KanbanBoard.propTypes = {
     taskCallbacks: PropTypes.object
 };
 
-export default KanbanBoard;
+export default DragDropContext(HTML5Backend)(KanbanBoard);
