@@ -28,7 +28,8 @@ const ticketDragSpec = {
 const collectDrag = (connect, monitor) => {
 
     return {
-        connectDragSource: connect.dragSource()
+        connectDragSource: connect.dragSource(),
+        isDragging: monitor.isDragging()
     };
 
 };
@@ -91,7 +92,8 @@ class Ticket extends Component {
             tasks,
             title,
             taskCallbacks,
-            connectDragSource
+            connectDragSource,
+            isDragging
         } = this.props;
 
         const ticketLeftSideStyle = {
@@ -99,7 +101,7 @@ class Ticket extends Component {
         };
 
         return connectDragSource(
-            <div>
+            <div className={`${isDragging ? "ticket-is-dragging" : ""}`}>
                 <Card id={'ticket-' + id}
                       className="mb-2 rounded-0 border-top-0 border-right-0 border-bottom-0"
                       aria-expanded="true"
@@ -132,7 +134,8 @@ Ticket.propTypes = {
     tasks: PropTypes.array,
     title: PropTypes.string.isRequired,
     taskCallbacks: PropTypes.object,
-    connectDragSource: PropTypes.func.isRequired
+    connectDragSource: PropTypes.func.isRequired,
+    isDragging: PropTypes.bool.isRequired
 };
 
 export default DragSource('card', ticketDragSpec, collectDrag)(Ticket);

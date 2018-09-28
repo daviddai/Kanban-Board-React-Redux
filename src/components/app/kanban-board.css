@@ -47,6 +47,10 @@ body {
     border-style: dotted;
 }
 
+.ticket-is-dragging {
+    display: none;
+}
+
 .ticket-color {
     background-color: white;
 }
