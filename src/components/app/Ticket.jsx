@@ -17,6 +17,10 @@ const ticketDragSpec = {
         return {
             id: props.id
         }
+    },
+
+    endDrag(props) {
+
     }
 
 };

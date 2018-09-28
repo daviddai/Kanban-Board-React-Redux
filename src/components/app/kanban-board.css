@@ -43,6 +43,10 @@ body {
     height: 100%;
 }
 
+.ticket-list-hover-border {
+    border-style: dotted;
+}
+
 .ticket-color {
     background-color: white;
 }

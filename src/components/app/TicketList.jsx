@@ -5,6 +5,10 @@ import Ticket from "./Ticket";
 
 const ticketListDropSpec = {
 
+    hover(props, monitor) {
+
+    },
+
     drop(props, monitor) {
 
     }
@@ -14,7 +18,8 @@ const ticketListDropSpec = {
 const collectDrop = (connect, monitor) => {
 
     return {
-        connectDropTarget: connect.dropTarget()
+        connectDropTarget: connect.dropTarget(),
+        isOver: monitor.isOver()
     }
 
 };
@@ -29,7 +34,8 @@ class TicketList extends Component {
         const {
             tickets,
             taskCallbacks,
-            connectDropTarget
+            connectDropTarget,
+            isOver
         } = this.props;
 
         let ticketList = tickets.map(ticket => (
@@ -44,7 +50,7 @@ class TicketList extends Component {
         ));
 
         return connectDropTarget(
-            <div className="ticket-list px-1 text-center">
+            <div className={`ticket-list px-1 text-center ${isOver ? "ticket-list-hover-border":""}`}>
                 <h3>{this.props.title}</h3>
                 {ticketList}
             </div>
@@ -56,7 +62,8 @@ class TicketList extends Component {
 TicketList.propTypes = {
     tickets: PropTypes.array,
     taskCallbacks: PropTypes.object,
-    connectDropTarget: PropTypes.func.isRequired
+    connectDropTarget: PropTypes.func.isRequired,
+    isOver: PropTypes.bool.isRequired
 };
 
 export default DropTarget('card', ticketListDropSpec, collectDrop)(TicketList);
