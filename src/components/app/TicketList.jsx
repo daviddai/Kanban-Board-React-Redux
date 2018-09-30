@@ -5,12 +5,13 @@ import Ticket from "./Ticket";
 
 const ticketListDropSpec = {
 
-    hover(props, monitor) {
-        console.log(monitor.getItem());
-    },
+    hover(props, monitor) {},
 
     drop(props, monitor) {
-        console.log(props.title);
+        const ticketId = monitor.getItem()['id'];
+        const oldStatus = monitor.getItem()['status'];
+        const newStatus = props.title;
+        props.taskCallbacks.updateTicketStatus(ticketId, oldStatus, newStatus);
     }
 
 };
