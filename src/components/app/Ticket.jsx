@@ -15,12 +15,9 @@ const ticketDragSpec = {
 
     beginDrag(props) {
         return {
-            id: props.id
+            id: props.id,
+            status: props.status
         }
-    },
-
-    endDrag(props) {
-
     }
 
 };
@@ -128,9 +125,10 @@ class Ticket extends Component {
 }
 
 Ticket.propTypes = {
-    id: PropTypes.number,
+    id: PropTypes.number.isRequired,
     color: PropTypes.string.isRequired,
     description: PropTypes.string,
+    status: PropTypes.string.isRequired,
     tasks: PropTypes.array,
     title: PropTypes.string.isRequired,
     taskCallbacks: PropTypes.object,

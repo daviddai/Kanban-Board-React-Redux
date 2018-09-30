@@ -6,11 +6,11 @@ import Ticket from "./Ticket";
 const ticketListDropSpec = {
 
     hover(props, monitor) {
-
+        console.log(monitor.getItem());
     },
 
     drop(props, monitor) {
-
+        console.log(props.title);
     }
 
 };
@@ -43,6 +43,7 @@ class TicketList extends Component {
                     id={ticket.id}
                     title={ticket.title}
                     description={ticket.description}
+                    status={ticket.status}
                     color={ticket.color}
                     tasks={ticket.tasks}
                     taskCallbacks={taskCallbacks}
@@ -60,6 +61,7 @@ class TicketList extends Component {
 }
 
 TicketList.propTypes = {
+    title: PropTypes.string,
     tickets: PropTypes.array,
     taskCallbacks: PropTypes.object,
     connectDropTarget: PropTypes.func.isRequired,
