@@ -142,8 +142,6 @@ class KanbanBoardContainer extends  Component {
             this.setState({
                 tickets: newTickets
             });
-
-            console.log(this.state.tickets);
         }
     };
 

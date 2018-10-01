@@ -10,7 +10,7 @@ const ticketListDropSpec = {
     drop(props, monitor) {
         const ticketId = monitor.getItem()['id'];
         const oldStatus = monitor.getItem()['status'];
-        const newStatus = props.title;
+        const newStatus = props.status;
         props.taskCallbacks.updateTicketStatus(ticketId, oldStatus, newStatus);
     }
 
@@ -62,6 +62,7 @@ class TicketList extends Component {
 }
 
 TicketList.propTypes = {
+    status: PropTypes.string,
     title: PropTypes.string,
     tickets: PropTypes.array,
     taskCallbacks: PropTypes.object,

@@ -21,7 +21,8 @@ class KanbanBoard extends Component {
             <div className="kanban-board-container">
                 <Row className="kanban-board-row">
                     <Col className="kanban-board-column kanban-board-column-separator">
-                        <TicketList title="To Do"
+                        <TicketList status="todo"
+                                    title="To Do"
                                     tickets={this.props.tickets.filter(
                                         ticket => ticket.status === 'todo'
                                     )}
@@ -29,7 +30,8 @@ class KanbanBoard extends Component {
                         />
                     </Col>
                     <Col className="kanban-board-column kanban-board-column-separator">
-                        <TicketList title="In Progress"
+                        <TicketList status="in-progress"
+                                    title="In Progress"
                                     tickets={this.props.tickets.filter(
                                         ticket => ticket.status === 'in-progress'
                                     )}
@@ -37,7 +39,8 @@ class KanbanBoard extends Component {
                         />
                     </Col>
                     <Col className="kanban-board-column kanban-board-column-separator">
-                        <TicketList title="Finished"
+                        <TicketList status="finished"
+                                    title="Finished"
                                     tickets={this.props.tickets.filter(
                                         ticket => ticket.status === 'finished'
                                     )}
