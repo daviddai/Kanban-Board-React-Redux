@@ -129,6 +129,7 @@ class KanbanBoardContainer extends  Component {
         const ticketIndex = this.findTicketIndex(ticketId);
 
         if (ticketIndex != -1) {
+            let oldTicket = this.state.tickets[ticketIndex];
             const newTickets = update(this.state.tickets, {
                 [ticketIndex]: {
                     status: {
@@ -138,6 +139,9 @@ class KanbanBoardContainer extends  Component {
                     }
                 }
             });
+
+            axios.post('')
+                .then()
 
             this.setState({
                 tickets: newTickets
