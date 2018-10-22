@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import KanbanBoardContainer from "./components/app/KanbanBoardContainer";
+import KanbanBoardContainer from "./components/app/kanban-board/KanbanBoardContainer";
 
 let tickets = [{
     id: 1,
