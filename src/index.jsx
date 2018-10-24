@@ -2,6 +2,9 @@ import React from "react";
 import ReactDOM from "react-dom";
 import KanbanBoardContainer from "./components/app/kanban-board/KanbanBoardContainer";
 
+import "bootstrap/dist/css/bootstrap.min.css";
+import "font-awesome/css/font-awesome.min.css";
+
 let tickets = [{
     id: 1,
     title: "Read the Book",
