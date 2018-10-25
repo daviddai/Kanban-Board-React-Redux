@@ -3,6 +3,12 @@ import PropTypes from "prop-types";
 
 class TopBar extends Component {
 
+    getMenuItems = () => (
+        <div className="navbar-nav">
+
+        </div>
+    );
+
     render() {
         return (
             <nav className="navbar navbar-expand-lg navbar-light bg-dark mb-2">
@@ -17,7 +23,6 @@ class TopBar extends Component {
                         <a className="nav-item nav-link active text-white" href="#">Home <span className="sr-only">(current)</span></a>
                         <a className="nav-item nav-link text-white" href="#">Features</a>
                         <a className="nav-item nav-link text-white" href="#">Pricing</a>
-                        <a className="nav-item nav-link text-white" href="#">Disabled</a>
                     </div>
                 </div>
             </nav>
