@@ -3,8 +3,6 @@ import KanbanBoard from "./KanbanBoard";
 import axios from "axios";
 import update from 'react-addons-update';
 
-import TopNavBar from "../../reusable/bar/top-bar/TopNavBar";
-
 class KanbanBoardContainer extends  Component {
 
     constructor(props) {
