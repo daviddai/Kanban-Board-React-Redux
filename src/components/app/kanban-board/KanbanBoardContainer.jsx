@@ -150,7 +150,6 @@ class KanbanBoardContainer extends  Component {
     render() {
         return (
             <div>
-                <TopNavBar navItems={['MenuItem1', 'MenuItem2', 'MenuItem3', 'MenuItem4', 'MenuItem5']}/>
                 <KanbanBoard tickets={this.state.tickets}
                              taskCallbacks={{
                                  toggle: this.toggleTask,

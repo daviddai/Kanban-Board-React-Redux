@@ -4,9 +4,6 @@ import PropTypes from "prop-types";
 import {DragDropContext} from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 
-import "bootstrap/dist/css/bootstrap.min.css";
-import "font-awesome/css/font-awesome.min.css";
-
 import "./kanban-board.css";
 import TicketList from "./TicketList";
 
