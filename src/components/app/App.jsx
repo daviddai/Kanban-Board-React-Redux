@@ -7,6 +7,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "font-awesome/css/font-awesome.min.css";
 import TopNavBar from "../reusable/bar/top-bar/TopNavBar";
 
+import "./app.css";
+
 class App extends Component {
 
     render() {
@@ -31,7 +33,7 @@ class App extends Component {
         }];
 
         return (
-            <div>
+            <div className="app">
                 <TopNavBar navItems={['MenuItem1', 'MenuItem2', 'MenuItem3', 'MenuItem4', 'MenuItem5']}/>
                 <Router>
                     <Route path="/kanban" render={() => (<KanbanBoardContainer tickets={tickets} />)} />
