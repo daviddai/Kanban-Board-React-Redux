@@ -15,10 +15,10 @@ class TopNavBar extends Component {
                 <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div className="navbar-nav">
                         {
-                            this.props.navItems.map(navItemTitle => (
+                            this.props.navItems.map(navItem => (
                                 <a className="nav-item nav-link text-white"
-                                   href="#">
-                                    {navItemTitle}
+                                   href={navItem.url}>
+                                    {navItem.title}
                                 </a>
                             ))
                         }

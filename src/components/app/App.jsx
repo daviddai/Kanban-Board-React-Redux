@@ -32,9 +32,24 @@ class App extends Component {
             ]
         }];
 
+        let navItems = [
+            {
+                title: 'Dashboards',
+                url:'dashboard'
+            },
+            {
+                title: 'Boards',
+                url:'kanban'
+            },
+            {
+                title: 'Others',
+                url:'others'
+            }
+        ];
+
         return (
             <div className="app">
-                <TopNavBar navItems={['MenuItem1', 'MenuItem2', 'MenuItem3', 'MenuItem4', 'MenuItem5']}/>
+                <TopNavBar navItems={navItems}/>
                 <Router>
                     <Route path="/kanban" render={() => (<KanbanBoardContainer tickets={tickets} />)} />
                 </Router>
