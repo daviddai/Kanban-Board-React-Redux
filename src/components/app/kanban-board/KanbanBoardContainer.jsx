@@ -3,7 +3,7 @@ import KanbanBoard from "./KanbanBoard";
 import axios from "axios";
 import update from 'react-addons-update';
 
-import TopBar from "../../reusable/bar/top-bar/TopBar";
+import TopNavBar from "../../reusable/bar/top-bar/TopNavBar";
 
 class KanbanBoardContainer extends  Component {
 
@@ -150,7 +150,7 @@ class KanbanBoardContainer extends  Component {
     render() {
         return (
             <div>
-                <TopBar/>
+                <TopNavBar navItems={['MenuItem1', 'MenuItem2', 'MenuItem3', 'MenuItem4', 'MenuItem5']}/>
                 <KanbanBoard tickets={this.state.tickets}
                              taskCallbacks={{
                                  toggle: this.toggleTask,
