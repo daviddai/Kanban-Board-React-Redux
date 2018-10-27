@@ -5,9 +5,11 @@ import KanbanBoardContainer from "./kanban-board/KanbanBoardContainer";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "font-awesome/css/font-awesome.min.css";
-import TopNavBar from "../reusable/bar/top-bar/TopNavBar";
 
 import "./app.css";
+import AppMenu from "./menu/AppMenu";
+import DashboardContainer from "./dashboard/DashboardContainer";
+import {Switch} from "react-router";
 
 class App extends Component {
 
@@ -34,14 +36,17 @@ class App extends Component {
 
         let navItems = [
             {
+                id: 1,
                 title: 'Dashboards',
                 url:'dashboard'
             },
             {
+                id: 2,
                 title: 'Boards',
                 url:'kanban'
             },
             {
+                id: 3,
                 title: 'Others',
                 url:'others'
             }
@@ -49,9 +54,12 @@ class App extends Component {
 
         return (
             <div className="app">
-                <TopNavBar navItems={navItems}/>
+                <AppMenu menuItems={navItems}/>
                 <Router>
-                    <Route path="/kanban" render={() => (<KanbanBoardContainer tickets={tickets} />)} />
+                    <Switch>
+                        <Route path="/kanban" render={() => (<KanbanBoardContainer tickets={tickets} />)} />
+                        <Route path="/dashboard" component={DashboardContainer} />
+                    </Switch>
                 </Router>
             </div>
         );

@@ -16,7 +16,8 @@ class TopNavBar extends Component {
                     <div className="navbar-nav">
                         {
                             this.props.navItems.map(navItem => (
-                                <a className="nav-item nav-link text-white"
+                                <a key={navItem.id}
+                                   className="nav-item nav-link text-white"
                                    href={navItem.url}>
                                     {navItem.title}
                                 </a>
