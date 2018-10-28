@@ -129,23 +129,30 @@ class KanbanBoardContainer extends  Component {
         const ticketIndex = this.findTicketIndex(ticketId);
 
         if (ticketIndex != -1) {
-            let oldTicket = this.state.tickets[ticketIndex];
-            const newTickets = update(this.state.tickets, {
-                [ticketIndex]: {
-                    status: {
-                        $apply: () => {
-                            return toStatus
-                        }
-                    }
-                }
-            });
+            let ticket = this.state.tickets[ticketIndex];
+            ticket.status = toStatus;
 
-            axios.post('')
-                .then()
+            axios.post('http://localhost:8083/ticket/update', ticket)
+                 .then(response => {
+                     if (response.status == 200) {
+                         const newTickets = update(this.state.tickets, {
+                             [ticketIndex]: {
+                                 status: {
+                                     $apply: () => {
+                                         return toStatus
+                                     }
+                                 }
+                             }
+                         });
 
-            this.setState({
-                tickets: newTickets
-            });
+                         this.setState({
+                             tickets: newTickets
+                         });
+                     }
+                 })
+                 .catch(error => {
+
+                 });
         }
     };
 
