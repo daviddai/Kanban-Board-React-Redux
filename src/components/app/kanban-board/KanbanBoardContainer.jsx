@@ -33,7 +33,7 @@ class KanbanBoardContainer extends  Component {
                  );
              })
              .catch(error => {
-                console.log(error.message);
+                console.log("KanbanBoardContainer: " + error.message);
                 // use fall back data
                 this.setState(
                     {
