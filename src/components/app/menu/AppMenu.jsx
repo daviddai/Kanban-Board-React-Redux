@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
 
+import update from 'react-addons-update';
 import TopNavBar from "../../reusable/bar/top-bar/TopNavBar";
 
 class AppMenu extends Component {
@@ -9,7 +10,8 @@ class AppMenu extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            menuItems: []
+            menuItems: [],
+            currentSelectedMenuItemId: -1
         }
     }
 
@@ -32,9 +34,16 @@ class AppMenu extends Component {
         this.loadAppMenu();
     }
 
+    handleMenuItemClick = (menuItemId) => {
+        // todo: update state with new selected menu item id
+    };
+
     render() {
         return (
-            <TopNavBar navItems={this.state.menuItems}/>
+            <TopNavBar navItems={this.state.menuItems}
+                       highlightNavItemId={this.state.currentSelectedMenuItemId}
+                       handleNavItemClick={this.handleMenuItemClick}
+            />
         );
     }
 

@@ -3,6 +3,10 @@ import PropTypes from "prop-types";
 
 class TopNavBar extends Component {
 
+    handleNavItemClick = (event) => {
+        this.props.handleNavItemClick(event.target.getAttribute('id'));
+    };
+
     render() {
         return (
             <nav className="navbar navbar-expand-lg navbar-light bg-dark mb-2">
@@ -17,8 +21,11 @@ class TopNavBar extends Component {
                         {
                             this.props.navItems.map(navItem => (
                                 <a key={navItem.id}
-                                   className="nav-item nav-link text-white"
-                                   href={navItem.url}>
+                                   id={navItem.id}
+                                   className={"nav-item nav-link text-white" + (this.props.highlightNavItemId == navItem.id ? " font-weight-bold" : "")}
+                                   href={navItem.url}
+                                   onClick={this.handleNavItemClick}
+                                >
                                     {navItem.title}
                                 </a>
                             ))
@@ -32,7 +39,9 @@ class TopNavBar extends Component {
 }
 
 TopNavBar.propTypes = {
-    navItems: PropTypes.array
+    navItems: PropTypes.array,
+    highlightNavItemId: PropTypes.number,
+    handleNavItemClick: PropTypes.func
 };
 
 export default TopNavBar;
