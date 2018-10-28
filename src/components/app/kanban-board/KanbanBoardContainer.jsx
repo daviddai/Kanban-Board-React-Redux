@@ -16,13 +16,7 @@ class KanbanBoardContainer extends  Component {
         axios.get("http://localhost:8083/ticket/all")
              .then(response => {
                  let tickets = response.data.map(ticket => {
-                    if (ticket.status === 'todo') {
-                        ticket.color = '#3A7E28'
-                    } else if (ticket.status === 'in-progress') {
-                        ticket.color = '#BD8D31';
-                    } else {
-                        ticket.color = '';
-                    }
+                    ticket.color = this.getTicketSideColorByStatus(ticket.status);
                     return ticket;
                  });
 
@@ -125,6 +119,16 @@ class KanbanBoardContainer extends  Component {
         }
     };
 
+    getTicketSideColorByStatus = (status) => {
+        if (status === 'todo') {
+            return '#3A7E28'
+        } else if (status === 'in-progress') {
+            return '#BD8D31';
+        } else {
+            return '';
+        }
+    };
+
     updateTicketStatus = (ticketId, fromStatus, toStatus) => {
         const ticketIndex = this.findTicketIndex(ticketId);
 
@@ -140,6 +144,11 @@ class KanbanBoardContainer extends  Component {
                                  status: {
                                      $apply: () => {
                                          return toStatus
+                                     }
+                                 },
+                                 color: {
+                                     $apply: () => {
+                                         return this.getTicketSideColorByStatus(toStatus)
                                      }
                                  }
                              }
