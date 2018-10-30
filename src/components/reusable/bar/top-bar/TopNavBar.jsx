@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import PropTypes from "prop-types";
+import {Link} from 'react-router-dom';
 
 class TopNavBar extends Component {
 
@@ -20,14 +21,14 @@ class TopNavBar extends Component {
                     <div className="navbar-nav">
                         {
                             this.props.navItems.map(navItem => (
-                                <a key={navItem.id}
+                                <Link key={navItem.id}
                                    id={navItem.id}
                                    className={"nav-item nav-link text-white" + (this.props.highlightNavItemId == navItem.id ? " font-weight-bold" : "")}
-                                   href={navItem.url}
+                                   to={navItem.url}
                                    onClick={this.handleNavItemClick}
                                 >
                                     {navItem.title}
-                                </a>
+                                </Link>
                             ))
                         }
                     </div>

@@ -9,7 +9,7 @@ import "font-awesome/css/font-awesome.min.css";
 import "./app.css";
 import AppMenu from "./menu/AppMenu";
 import DashboardContainer from "./dashboard/DashboardContainer";
-import {Switch} from "react-router";
+import Switch from "react-router/es/Switch";
 
 class App extends Component {
 
@@ -54,13 +54,15 @@ class App extends Component {
 
         return (
             <div className="app">
-                <AppMenu menuItems={navItems}/>
-                <Router>
-                    <Switch>
-                        <Route path="/kanban" render={() => (<KanbanBoardContainer tickets={tickets} />)} />
-                        <Route path="/dashboard" component={DashboardContainer} />
-                    </Switch>
-                </Router>
+                <div>
+                    <Router>
+                        <Switch>
+                            <AppMenu menuItems={navItems}/>
+                            <Route path="/kanban" render={() => (<KanbanBoardContainer tickets={tickets} />)} />
+                            <Route path="/dashboard" component={DashboardContainer} />
+                        </Switch>
+                    </Router>
+                </div>
             </div>
         );
     }
