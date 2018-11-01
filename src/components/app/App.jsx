@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import {BrowserRouter, Route, Switch} from 'react-router-dom';
 
 import KanbanBoardContainer from "./kanban-board/KanbanBoardContainer";
 
@@ -9,7 +9,6 @@ import "font-awesome/css/font-awesome.min.css";
 import "./app.css";
 import AppMenu from "./menu/AppMenu";
 import DashboardContainer from "./dashboard/DashboardContainer";
-import Switch from "react-router/es/Switch";
 
 class App extends Component {
 
@@ -54,15 +53,15 @@ class App extends Component {
 
         return (
             <div className="app">
-                <div>
-                    <Router>
+                <BrowserRouter>
+                    <div>
+                        <AppMenu menuItems={navItems}/>
                         <Switch>
-                            <AppMenu menuItems={navItems}/>
                             <Route path="/kanban" render={() => (<KanbanBoardContainer tickets={tickets} />)} />
                             <Route path="/dashboard" component={DashboardContainer} />
                         </Switch>
-                    </Router>
-                </div>
+                    </div>
+                </BrowserRouter>
             </div>
         );
     }

@@ -22,10 +22,10 @@ class TopNavBar extends Component {
                         {
                             this.props.navItems.map(navItem => (
                                 <Link key={navItem.id}
-                                   id={navItem.id}
-                                   className={"nav-item nav-link text-white" + (this.props.highlightNavItemId == navItem.id ? " font-weight-bold" : "")}
-                                   to={navItem.url}
-                                   onClick={this.handleNavItemClick}
+                                      id={navItem.id}
+                                      className={"nav-item nav-link text-white" + (this.props.highlightNavItemId == navItem.id ? " font-weight-bold" : "")}
+                                      to={navItem.url}
+                                      onClick={this.handleNavItemClick}
                                 >
                                     {navItem.title}
                                 </Link>
