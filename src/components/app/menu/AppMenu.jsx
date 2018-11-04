@@ -17,16 +17,27 @@ class AppMenu extends Component {
     loadAppMenu = () => {
         axios.get("mockedUrl")
              .then(response => {
-
+                 this.setState(
+                     {
+                         "menuItems": response.data,
+                         "currentSelectedMenuItemId": this.getMenuItemIdFromURI(response.data)
+                     }
+                 )
              })
              .catch(error => {
                  console.log("AppMenu Error: " + error.message);
                  this.setState(
                      {
-                         "menuItems": this.props.menuItems
+                         "menuItems": this.props.menuItems,
+                         "currentSelectedMenuItemId": this.getMenuItemIdFromURI(this.props.menuItems)
                      }
                  )
              });
+    };
+
+    getMenuItemIdFromURI = (menuItems) => {
+        const uri = window.location.pathname;
+        return menuItems.find(item => '/' + item.uri === uri).id;
     };
 
     componentDidMount() {

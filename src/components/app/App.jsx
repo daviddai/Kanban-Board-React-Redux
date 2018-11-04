@@ -37,17 +37,17 @@ class App extends Component {
             {
                 id: 1,
                 title: 'Dashboards',
-                url:'dashboard'
+                uri:'dashboard'
             },
             {
                 id: 2,
                 title: 'Boards',
-                url:'kanban'
+                uri:'kanban'
             },
             {
                 id: 3,
                 title: 'Others',
-                url:'others'
+                uri:'others'
             }
         ];
 

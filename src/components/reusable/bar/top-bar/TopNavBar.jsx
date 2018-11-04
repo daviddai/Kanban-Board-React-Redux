@@ -24,7 +24,7 @@ class TopNavBar extends Component {
                                 <Link key={navItem.id}
                                       id={navItem.id}
                                       className={"nav-item nav-link text-white" + (this.props.highlightNavItemId == navItem.id ? " font-weight-bold" : "")}
-                                      to={navItem.url}
+                                      to={navItem.uri}
                                       onClick={this.handleNavItemClick}
                                 >
                                     {navItem.title}
