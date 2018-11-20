@@ -28,17 +28,14 @@ class KanbanBoard extends Component {
                 <Row className="kanban-board-row">
                     {
                         this.getColumnOrderSortedByTicketStatus.map((status, i) => (
-                            this.props.tickets.filter(tickets => tickets.status.code === status.code)
-                                              .map(tickets => (
-                                                  <Col className="kanban-board-column kanban-board-column-separator">
-                                                      <TicketList status={tickets.status.code}
-                                                                  title={tickets.status.text}
-                                                                  tickets={tickets.tickets}
-                                                                  color={tickets.status.color}
-                                                                  taskCallbacks={this.props.taskCallbacks}
-                                                      />
-                                                  </Col>
-                                              ))
+                            <Col className="kanban-board-column kanban-board-column-separator">
+                                <TicketList status={status.code}
+                                            title={status.text}
+                                            tickets={this.props.tickets.filter(ticket => ticket.status.code === status.code)}
+                                            color={status.color}
+                                            taskCallbacks={this.props.taskCallbacks}
+                                />
+                            </Col>
                         ))
                     }
                 </Row>

@@ -14,36 +14,24 @@ import {TicketStatus} from "./kanban-board/ticket/TicketStatus";
 class App extends Component {
 
     render() {
-        let data = [
+        let tickets = [
             {
+                id: 1,
+                title: "Read the Book",
+                description: "I should read the **whole** book",
                 status: TicketStatus.todo,
-                tickets: [
-                    {
-                        id: 1,
-                        title: "Read the Book",
-                        description: "I should read the **whole** book",
-                        tasks: []
-                    }
-                ]
+                tasks: []
             },
             {
+                id: 2,
+                title: "Write some code",
+                description: "Code along with the samples in the book. The complete source can be found at [github](https://github.com/pro-react)",
                 status: TicketStatus.inProgress,
-                tickets: [
-                    {
-                        id: 2,
-                        title: "Write some code",
-                        description: "Code along with the samples in the book. The complete source can be found at [github](https://github.com/pro-react)",
-                        tasks: [
-                            {id: 1, name: "ContactList Example", done: true},
-                            {id: 2, name: "Kanban Example", done: false},
-                            {id: 3, name: "My own experiments", done: false}
-                        ]
-                    }
+                tasks: [
+                    {id: 1, name: "ContactList Example", done: true},
+                    {id: 2, name: "Kanban Example", done: false},
+                    {id: 3, name: "My own experiments", done: false}
                 ]
-            },
-            {
-                status: TicketStatus.finished,
-                tickets: []
             }
         ];
 
@@ -70,7 +58,7 @@ class App extends Component {
                 <div className="app">
                     <AppMenu menuItems={navItems}/>
                     <Switch>
-                        <Route path="/kanban" render={() => (<KanbanBoardContainer tickets={data} />)} />
+                        <Route path="/kanban" render={() => (<KanbanBoardContainer tickets={tickets} />)} />
                         <Route path="/dashboard" component={DashboardContainer} />
                     </Switch>
                 </div>
