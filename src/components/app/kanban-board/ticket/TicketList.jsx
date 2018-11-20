@@ -34,6 +34,7 @@ class TicketList extends Component {
     render() {
         const {
             tickets,
+            color,
             taskCallbacks,
             connectDropTarget,
             isOver
@@ -44,8 +45,8 @@ class TicketList extends Component {
                     id={ticket.id}
                     title={ticket.title}
                     description={ticket.description}
-                    status={ticket.status}
-                    color={ticket.color}
+                    status={status}
+                    color={color}
                     tasks={ticket.tasks}
                     taskCallbacks={taskCallbacks}
             />
@@ -65,6 +66,7 @@ TicketList.propTypes = {
     status: PropTypes.string,
     title: PropTypes.string,
     tickets: PropTypes.array,
+    color: PropTypes.string,
     taskCallbacks: PropTypes.object,
     connectDropTarget: PropTypes.func.isRequired,
     isOver: PropTypes.bool.isRequired

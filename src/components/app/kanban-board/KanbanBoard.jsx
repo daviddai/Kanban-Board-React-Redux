@@ -4,8 +4,9 @@ import PropTypes from "prop-types";
 import {DragDropContext} from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 
-import "./kanban-board.css";
-import TicketList from "./TicketList";
+import "./style/kanban-board.css";
+import TicketList from "./ticket/TicketList";
+import {TicketStatus} from "./ticket/TicketStatus";
 
 class KanbanBoard extends Component {
 
@@ -13,37 +14,33 @@ class KanbanBoard extends Component {
         super(props);
     }
 
+    getColumnOrderSortedByTicketStatus = (
+        [
+            TicketStatus.todo,
+            TicketStatus.inProgress,
+            TicketStatus.finished
+        ]
+    );
+
     render() {
         return (
             <div className="kanban-board-container">
                 <Row className="kanban-board-row">
-                    <Col className="kanban-board-column kanban-board-column-separator">
-                        <TicketList status="todo"
-                                    title="To Do"
-                                    tickets={this.props.tickets.filter(
-                                        ticket => ticket.status === 'todo'
-                                    )}
-                                    taskCallbacks={this.props.taskCallbacks}
-                        />
-                    </Col>
-                    <Col className="kanban-board-column kanban-board-column-separator">
-                        <TicketList status="in-progress"
-                                    title="In Progress"
-                                    tickets={this.props.tickets.filter(
-                                        ticket => ticket.status === 'in-progress'
-                                    )}
-                                    taskCallbacks={this.props.taskCallbacks}
-                        />
-                    </Col>
-                    <Col className="kanban-board-column kanban-board-column-separator">
-                        <TicketList status="finished"
-                                    title="Finished"
-                                    tickets={this.props.tickets.filter(
-                                        ticket => ticket.status === 'finished'
-                                    )}
-                                    taskCallbacks={this.props.taskCallbacks}
-                        />
-                    </Col>
+                    {
+                        this.getColumnOrderSortedByTicketStatus.map((status, i) => (
+                            this.props.tickets.filter(tickets => tickets.status.code === status.code)
+                                              .map(tickets => (
+                                                  <Col className="kanban-board-column kanban-board-column-separator">
+                                                      <TicketList status={tickets.status.code}
+                                                                  title={tickets.status.text}
+                                                                  tickets={tickets.tickets}
+                                                                  color={tickets.status.color}
+                                                                  taskCallbacks={this.props.taskCallbacks}
+                                                      />
+                                                  </Col>
+                                              ))
+                        ))
+                    }
                 </Row>
             </div>
         )

@@ -1,11 +1,11 @@
 import React, {Component} from "react";
 import PropTypes from "prop-types";
 import {DragSource} from 'react-dnd';
-import {Card} from "../../reusable/card/Card";
-import {CardHeader} from "../../reusable/card/CardHeader";
-import {CardBody} from "../../reusable/card/CardBody";
-import {CardFooter} from "../../reusable/card/CardFooter";
-import TaskList from "./TaskList";
+import {Card} from "../../../reusable/card/Card";
+import {CardHeader} from "../../../reusable/card/CardHeader";
+import {CardBody} from "../../../reusable/card/CardBody";
+import {CardFooter} from "../../../reusable/card/CardFooter";
+import TaskList from "../task/TaskList";
 import marked from "marked";
 
 import "bootstrap/dist/js/bootstrap.min";
