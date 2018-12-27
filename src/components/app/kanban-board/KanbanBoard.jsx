@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Row, Col} from "react-grid-system";
+import {Col, Row} from "react-grid-system";
 import PropTypes from "prop-types";
 import {DragDropContext} from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
@@ -28,7 +28,7 @@ class KanbanBoard extends Component {
                 <Row className="kanban-board-row">
                     {
                         this.getColumnOrderSortedByTicketStatus.map((status, i) => (
-                            <Col className="kanban-board-column kanban-board-column-separator">
+                            <Col key={i} className="kanban-board-column kanban-board-column-separator">
                                 <TicketList status={status.code}
                                             title={status.text}
                                             tickets={this.props.tickets.filter(ticket => ticket.status.code === status.code)}
