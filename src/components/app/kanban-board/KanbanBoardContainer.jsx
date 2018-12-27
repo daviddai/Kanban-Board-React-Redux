@@ -61,21 +61,32 @@ class KanbanBoardContainer extends  Component {
         const ticketIndex = this.findTicketIndex(ticketId);
 
         if (ticketIndex != -1) {
-            const newTask = {
-                id: this.state.tickets[ticketIndex].tasks.length + 1,
+            let newTask = {
+                id: -1,
                 name: taskName,
-                done: false
+                done: false,
+                ticketId: ticketId
             };
 
-            const newTickets = update(this.state.tickets, {
-                [ticketIndex]: {
-                    tasks: { $push: [newTask] }
-                }
-            });
+            axios.post("http://localhost:8083/task/add", newTask)
+                 .then(response => {
+                     if (response.data.succeed) {
+                         newTask.id = response.data.taskId;
 
-            this.setState({
-                tickets: newTickets
-            });
+                         const newTickets = update(this.state.tickets, {
+                             [ticketIndex]: {
+                                 tasks: { $push: [newTask] }
+                             }
+                         });
+
+                         this.setState({
+                             tickets: newTickets
+                         });
+                     }
+                 })
+                 .catch(error => {
+                    console.log(error);
+                 });
         }
     };
 
