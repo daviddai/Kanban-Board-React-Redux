@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import KanbanBoard from "./KanbanBoard";
 import axios from "axios";
 import update from 'react-addons-update';
+import {TicketStatus} from "./ticket/TicketStatus";
 
 class KanbanBoardContainer extends  Component {
 
@@ -16,7 +17,7 @@ class KanbanBoardContainer extends  Component {
         axios.get("http://localhost:8083/ticket/all")
              .then(response => {
                  let tickets = response.data.map(ticket => {
-                    ticket.color = this.getTicketSideColorByStatus(ticket.status);
+                    ticket.status = this.getTicketStatus(ticket.status);
                     return ticket;
                  });
 
@@ -28,6 +29,9 @@ class KanbanBoardContainer extends  Component {
              })
              .catch(error => {
                 console.log("KanbanBoardContainer: " + error.message);
+
+                alert("Failed to connect to service!")
+
                 // use fall back data
                 this.setState(
                     {
@@ -116,16 +120,24 @@ class KanbanBoardContainer extends  Component {
             this.setState({
                 tickets: newTickets
             });
+
+            axios.post("http://localhost:8083/task/update/status", {
+                "ticketId": ticketId,
+                "taskId": taskId,
+                "done": newTickets[ticketIndex].tasks[taskIndex].done
+            }).then(response => {
+                console.log(response.status);
+            }).catch(error => {
+                console.log(error);
+            });
         }
     };
 
-    getTicketSideColorByStatus = (status) => {
-        if (status === 'todo') {
-            return '#3A7E28'
-        } else if (status === 'in-progress') {
-            return '#BD8D31';
-        } else {
-            return '';
+    getTicketStatus = (status) => {
+        switch (status) {
+            case "todo": return TicketStatus.todo;
+            case "in-progress": return TicketStatus.inProgress;
+            case "finished": return TicketStatus.finished;
         }
     };
 
