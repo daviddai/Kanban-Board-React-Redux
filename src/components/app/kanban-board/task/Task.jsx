@@ -1,6 +1,8 @@
 import React, {Component} from "react";
 import PropTypes from "prop-types";
 
+import {EditInlineLabel} from "../../../reusable/input/EditInlineLabel";
+
 class Task extends Component {
 
     constructor(props) {
@@ -27,7 +29,8 @@ class Task extends Component {
                        defaultChecked={this.props.done}
                        onClick={this.toggleTask}
                 />
-                <label style={taskTextDecoration}>{this.props.name}</label>
+                <EditInlineLabel text={this.props.name}/>
+                {/*<label style={taskTextDecoration}>{this.props.name}</label>*/}
                 <i className="fa fa-close pl-2 text-danger icon"
                    onClick={this.deleteTask}
                 />
