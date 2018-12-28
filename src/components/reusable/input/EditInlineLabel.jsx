@@ -3,6 +3,9 @@ import PropTypes from "prop-types";
 
 export class EditInlineLabel extends React.Component {
 
+    // todo: ref for detecting click outside of the component
+    // https://stackoverflow.com/questions/32553158/detect-click-outside-react-component
+
     constructor(props) {
         super(props);
 
