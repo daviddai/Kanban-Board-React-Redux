@@ -1,9 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import ClickOutComponent from "react-onclickout";
+import onClickOutside from "react-onclickoutside";
 
-export class EditInlineLabel extends React.Component {
+class EditInlineLabel extends React.Component {
 
     constructor(props) {
         super(props);
@@ -49,7 +49,7 @@ export class EditInlineLabel extends React.Component {
         }
 
         return (
-            <ClickOutComponent onClickOut={this.handleClickOutside}>{element}</ClickOutComponent>
+            element
         );
     }
 
@@ -58,3 +58,5 @@ export class EditInlineLabel extends React.Component {
 EditInlineLabel.propTypes = {
     text: PropTypes.string.isRequired
 };
+
+export default onClickOutside(EditInlineLabel);

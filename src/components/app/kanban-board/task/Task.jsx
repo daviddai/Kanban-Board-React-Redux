@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import PropTypes from "prop-types";
 
-import {EditInlineLabel} from "../../../reusable/input/EditInlineLabel";
+import EditInlineLabel from "../../../reusable/input/EditInlineLabel";
 
 class Task extends Component {
 
