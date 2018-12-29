@@ -38,19 +38,25 @@ class EditInlineLabel extends React.Component {
     };
 
     render() {
-        let element = "";
-
-        if (this.state.isActive) {
-            element = <input type="text"
-                             defaultValue={this.props.text}
-                      />;
-        } else {
-            element = <label onClick={this.isClickedOn}>{this.props.text}</label>;
-        }
-
+        // let element = "";
+        //
+        // if (this.state.isActive) {
+        //     element = <input type="text"
+        //                      defaultValue={this.props.text}
+        //               />;
+        // } else {
+        //     element = <label onClick={this.isClickedOn}>{this.props.text}</label>;
+        // }
+        //
+        // return (
+        //     element
+        // );
         return (
-            element
-        );
+            <input type="text"
+                   defaultValue={this.props.text}
+                   style={{}}
+            />
+        )
     }
 
 }
