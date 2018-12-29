@@ -1,10 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-export class EditInlineLabel extends React.Component {
+import ClickOutComponent from "react-onclickout";
 
-    // todo: ref for detecting click outside of the component
-    // https://stackoverflow.com/questions/32553158/detect-click-outside-react-component
+export class EditInlineLabel extends React.Component {
 
     constructor(props) {
         super(props);
@@ -13,6 +12,14 @@ export class EditInlineLabel extends React.Component {
             isActive: false
         };
     }
+
+    handleClickOutside = (event) => {
+        console.log("handleClickOutside");
+
+        if (this.state.isActive) {
+            this.toggleStatus();
+        }
+    };
 
     isClickedOn = () => {
         this.toggleStatus();
@@ -29,22 +36,21 @@ export class EditInlineLabel extends React.Component {
     };
 
     render() {
-        let html = "";
+        let element = "";
+
+        console.log(this.state.isActive);
 
         if (this.state.isActive) {
-            html = (
-                <input type="text"
-                       defaultValue={this.props.text}
-                       onLostPointerCapture={this.handleTextUpdate}
-                />
-            );
+            element = <input type="text"
+                             defaultValue={this.props.text}
+                      />;
         } else {
-            html = (
-                <label onClick={this.isClickedOn}>{this.props.text}</label>
-            );
+            element = <label onClick={this.isClickedOn}>{this.props.text}</label>;
         }
 
-        return html;
+        return (
+            <ClickOutComponent onClickOut={this.handleClickOutside}>{element}</ClickOutComponent>
+        );
     }
 
 }
