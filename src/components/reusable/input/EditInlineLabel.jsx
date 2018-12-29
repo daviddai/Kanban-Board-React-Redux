@@ -11,15 +11,17 @@ class EditInlineLabel extends React.Component {
         this.state = {
             isActive: false
         };
+
+        this.handleClickOutside = this.handleClickOutside.bind(this);
     }
 
-    handleClickOutside = (event) => {
+    handleClickOutside(event) {
         console.log("handleClickOutside");
 
         if (this.state.isActive) {
             this.toggleStatus();
         }
-    };
+    }
 
     isClickedOn = () => {
         this.toggleStatus();
@@ -38,8 +40,6 @@ class EditInlineLabel extends React.Component {
     render() {
         let element = "";
 
-        console.log(this.state.isActive);
-
         if (this.state.isActive) {
             element = <input type="text"
                              defaultValue={this.props.text}
@@ -55,8 +55,14 @@ class EditInlineLabel extends React.Component {
 
 }
 
+let clickOutsideConfig = {
+    handleClickOutside: function(instance) {
+        return instance.handleClickOutside;
+    }
+};
+
 EditInlineLabel.propTypes = {
     text: PropTypes.string.isRequired
 };
 
-export default onClickOutside(EditInlineLabel);
+export default onClickOutside(EditInlineLabel, clickOutsideConfig);
