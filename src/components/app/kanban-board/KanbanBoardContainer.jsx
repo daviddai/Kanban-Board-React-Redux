@@ -95,17 +95,25 @@ class KanbanBoardContainer extends  Component {
         const taskIndex = this.findTaskIndex(taskId, this.state.tickets[ticketIndex])
 
         if (ticketIndex != -1 && taskIndex != -1) {
-            const newTickets = update(this.state.tickets, {
-                [ticketIndex]: {
-                    tasks: {
-                        $splice: [[taskIndex, 1]]
-                    }
-                }
-            });
+            axios.post("http://localhost:8083/task/delete/" + ticketId + "/" + taskId)
+                 .then(response => {
+                     if (response.data.succeed) {
+                         const newTickets = update(this.state.tickets, {
+                             [ticketIndex]: {
+                                 tasks: {
+                                     $splice: [[taskIndex, 1]]
+                                 }
+                             }
+                         });
 
-            this.setState({
-                tickets: newTickets
-            });
+                         this.setState({
+                             tickets: newTickets
+                         });
+                     }
+                 })
+                 .catch(error => {
+                     console.log(error);
+                 });
         }
     };
 
