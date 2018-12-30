@@ -16,8 +16,6 @@ class EditInlineLabel extends React.Component {
     }
 
     handleClickOutside(event) {
-        console.log("handleClickOutside");
-
         if (this.state.isActive) {
             this.toggleStatus();
         }
@@ -28,34 +26,44 @@ class EditInlineLabel extends React.Component {
     };
 
     handleTextUpdate = (event) => {
-        this.toggleStatus();
+        console.log(event.key);
+        if (event.key === 'Enter') {
+            this.toggleStatus();
+        }
     };
 
     toggleStatus = () => {
+        if (this.props.statusChangedCallback != null) {
+            this.props.statusChangedCallback(!this.state.isActive);
+        }
+
         this.setState({
             isActive: !this.state.isActive
-        })
+        });
     };
 
     render() {
-        // let element = "";
-        //
-        // if (this.state.isActive) {
-        //     element = <input type="text"
-        //                      defaultValue={this.props.text}
-        //               />;
-        // } else {
-        //     element = <label onClick={this.isClickedOn}>{this.props.text}</label>;
-        // }
-        //
-        // return (
-        //     element
-        // );
+        let textStyle = Object.assign({}, this.props.textStyle);
+
+        if (textStyle == null) {
+            textStyle = {};
+        }
+
+        textStyle['display'] = this.state.isActive ? 'none' : 'inline';
+
         return (
-            <input type="text"
-                   defaultValue={this.props.text}
-                   style={{}}
-            />
+            <React.Fragment>
+                <input type="text"
+                       defaultValue={this.props.text}
+                       onKeyUp={this.handleTextUpdate}
+                       style={{ display: this.state.isActive ? 'inline' : 'none' }}
+                />
+                <label onClick={this.isClickedOn}
+                       style={textStyle}
+                >
+                    {this.props.text}
+                </label>
+            </React.Fragment>
         )
     }
 
@@ -68,7 +76,9 @@ let clickOutsideConfig = {
 };
 
 EditInlineLabel.propTypes = {
-    text: PropTypes.string.isRequired
+    text: PropTypes.string.isRequired,
+    textStyle: PropTypes.object,
+    statusChangedCallback: PropTypes.func
 };
 
 export default onClickOutside(EditInlineLabel, clickOutsideConfig);
