@@ -66,8 +66,13 @@ class App extends Component {
                 <div className="app">
                     <AppMenu menuItems={navItems}/>
                     <Switch>
-                        <Route path="/kanban" render={() => (<KanbanBoardContainer tickets={tickets} />)} />
-                        <Route path="/dashboard" component={DashboardContainer} />
+                        <Route path="/kanban"
+                               render={
+                                   () => (<KanbanBoardContainer tickets={tickets} />)
+                               }
+                        />
+                        <Route path="/dashboard" component={DashboardContainer}
+                        />
                     </Switch>
                 </div>
             </BrowserRouter>

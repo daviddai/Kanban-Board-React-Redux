@@ -3,6 +3,7 @@ import axios from "axios";
 import PropTypes from "prop-types";
 
 import TopNavBar from "../../reusable/bar/top-bar/TopNavBar";
+import TicketModal from "../kanban-board/ticket/TicketModal";
 
 class AppMenu extends Component {
 
@@ -50,12 +51,19 @@ class AppMenu extends Component {
         })
     };
 
+    handleMenuButtonClick = () => {
+
+    };
+
     render() {
         return (
-            <TopNavBar navItems={this.state.menuItems}
-                       highlightNavItemId={this.state.currentSelectedMenuItemId}
-                       handleNavItemClick={this.handleMenuItemClick}
-            />
+            <React.Fragment>
+                <TopNavBar navItems={this.state.menuItems}
+                           highlightNavItemId={this.state.currentSelectedMenuItemId}
+                           handleNavItemClick={this.handleMenuItemClick}
+                />
+                <TicketModal/>
+            </React.Fragment>
         );
     }
 
