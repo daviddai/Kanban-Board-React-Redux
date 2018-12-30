@@ -214,6 +214,7 @@ class KanbanBoardContainer extends  Component {
             let ticket = this.state.tickets[ticketIndex];
             ticket.status = toStatus;
 
+            // todo: consider simplify request to contain only ticket id and new status
             axios.post('http://localhost:8083/ticket/update', ticket)
                  .then(response => {
                      if (response.status == 200) {
@@ -233,7 +234,7 @@ class KanbanBoardContainer extends  Component {
                      }
                  })
                  .catch(error => {
-
+                    console.log(error);
                  });
         }
     };
