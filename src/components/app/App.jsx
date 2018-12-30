@@ -39,17 +39,25 @@ class App extends Component {
             {
                 id: 1,
                 title: 'Dashboards',
-                uri:'dashboard'
+                uri:'dashboard',
+                type: 'link'
             },
             {
                 id: 2,
                 title: 'Boards',
-                uri:'kanban'
+                uri:'kanban',
+                type: 'link'
             },
             {
                 id: 3,
                 title: 'Others',
-                uri:'others'
+                uri:'others',
+                type: 'link'
+            },
+            {
+                id: 4,
+                name: 'Create',
+                type: 'button'
             }
         ];
 

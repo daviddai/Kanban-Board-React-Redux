@@ -20,16 +20,29 @@ class TopNavBar extends Component {
                 <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div className="navbar-nav">
                         {
-                            this.props.navItems.map(navItem => (
-                                <Link key={navItem.id}
-                                      id={navItem.id}
-                                      className={"nav-item nav-link text-white" + (this.props.highlightNavItemId == navItem.id ? " font-weight-bold" : "")}
-                                      to={navItem.uri}
-                                      onClick={this.handleNavItemClick}
-                                >
-                                    {navItem.title}
-                                </Link>
-                            ))
+                            this.props.navItems.map(navItem => {
+                                if (navItem.type === 'link') {
+                                    return (
+                                        <Link key={navItem.id}
+                                              id={navItem.id}
+                                              className={"nav-item nav-link text-white" + (this.props.highlightNavItemId == navItem.id ? " font-weight-bold" : "")}
+                                              to={navItem.uri}
+                                              onClick={this.handleNavItemClick}
+                                        >
+                                            {navItem.title}
+                                        </Link>
+                                    );
+                                } else {
+                                    return (
+                                        <button key={navItem.id}
+                                                id={navItem.id}
+                                                className={"btn btn-primary mx-2"}
+                                        >
+                                            {navItem.name}
+                                        </button>
+                                    );
+                                }
+                            })
                         }
                     </div>
                 </div>
