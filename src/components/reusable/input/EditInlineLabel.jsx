@@ -26,7 +26,6 @@ class EditInlineLabel extends React.Component {
     };
 
     handleTextUpdate = (event) => {
-        console.log(event.key);
         if (event.key === 'Enter') {
             this.toggleStatus();
         }
@@ -34,7 +33,7 @@ class EditInlineLabel extends React.Component {
 
     toggleStatus = () => {
         if (this.props.statusChangedCallback != null) {
-            this.props.statusChangedCallback(!this.state.isActive);
+            this.props.statusChangedCallback(!this.state.isActive, document.getElementById(this.props.inputId).value);
         }
 
         this.setState({
@@ -53,7 +52,8 @@ class EditInlineLabel extends React.Component {
 
         return (
             <React.Fragment>
-                <input type="text"
+                <input id={this.props.inputId}
+                       type="text"
                        defaultValue={this.props.text}
                        onKeyUp={this.handleTextUpdate}
                        style={{ display: this.state.isActive ? 'inline' : 'none' }}
@@ -76,6 +76,7 @@ let clickOutsideConfig = {
 };
 
 EditInlineLabel.propTypes = {
+    inputId: PropTypes.string.isRequired,
     text: PropTypes.string.isRequired,
     textStyle: PropTypes.object,
     statusChangedCallback: PropTypes.func

@@ -90,6 +90,49 @@ class KanbanBoardContainer extends  Component {
         }
     };
 
+    changeTaskName = (ticketId, taskId, newTaskName) => {
+        const ticketIndex = this.findTicketIndex(ticketId);
+        const taskIndex = this.findTaskIndex(taskId, this.state.tickets[ticketIndex]);
+
+        if (ticketIndex != -1 && taskIndex != -1) {
+            const updateTaskNameRequest = {
+                ticketId: ticketId,
+                taskId: taskId,
+                taskName: newTaskName
+            };
+
+            axios.post("http://localhost:8083/task/update/name", updateTaskNameRequest)
+                 .then(response => {
+                     if (response.data.succeed) {
+                         const newTickets = update(this.state.tickets, {
+                             [ticketIndex]: {
+                                 tasks: {
+                                     [taskIndex]: {
+                                         name: {
+                                             $apply: () => {
+                                                 return newTaskName;
+                                             }
+                                         }
+                                     }
+                                 }
+                             }
+                         });
+
+                         this.setState({
+                             tickets: newTickets
+                         });
+
+                         console.log(newTickets);
+
+                         console.log(response.status);
+                     }
+                 })
+                 .catch(error => {
+                     console.log(error);
+                 });
+        }
+    };
+
     deleteTask = (ticketId, taskId) => {
         const ticketIndex = this.findTicketIndex(ticketId);
         const taskIndex = this.findTaskIndex(taskId, this.state.tickets[ticketIndex])
@@ -122,30 +165,34 @@ class KanbanBoardContainer extends  Component {
         const taskIndex = this.findTaskIndex(taskId, this.state.tickets[ticketIndex]);
 
         if (ticketIndex != -1 && taskIndex != -1) {
-            const newTickets = update(this.state.tickets, {
-                [ticketIndex]: {
-                    tasks: {
-                        [taskIndex]: {
-                            done: {
-                                $apply: done => {
-                                    return !done;
-                                }
-                            }
-                        }
-                    }
-                }
-            });
-
-            this.setState({
-                tickets: newTickets
-            });
+            const newStatus = !this.state.tickets[ticketIndex].tasks[taskIndex].done;
 
             axios.post("http://localhost:8083/task/update/status", {
                 "ticketId": ticketId,
                 "taskId": taskId,
-                "done": newTickets[ticketIndex].tasks[taskIndex].done
+                "done": newStatus
             }).then(response => {
-                console.log(response.status);
+                if (response.data.succeed) {
+                    const newTickets = update(this.state.tickets, {
+                        [ticketIndex]: {
+                            tasks: {
+                                [taskIndex]: {
+                                    done: {
+                                        $apply: done => {
+                                            return !done;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    });
+
+                    this.setState({
+                        tickets: newTickets
+                    });
+
+                    console.log(response.status);
+                }
             }).catch(error => {
                 console.log(error);
             });
@@ -174,12 +221,7 @@ class KanbanBoardContainer extends  Component {
                              [ticketIndex]: {
                                  status: {
                                      $apply: () => {
-                                         return toStatus
-                                     }
-                                 },
-                                 color: {
-                                     $apply: () => {
-                                         return this.getTicketSideColorByStatus(toStatus)
+                                         return this.getTicketStatus(toStatus)
                                      }
                                  }
                              }
@@ -203,7 +245,8 @@ class KanbanBoardContainer extends  Component {
                              toggle: this.toggleTask,
                              add: this.addTask,
                              delete: this.deleteTask,
-                             updateTicketStatus: this.updateTicketStatus
+                             updateTicketStatus: this.updateTicketStatus,
+                             changeTaskName: this.changeTaskName
                          }}
             />
         );

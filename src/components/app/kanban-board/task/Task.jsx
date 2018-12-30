@@ -21,10 +21,15 @@ class Task extends Component {
         this.props.taskCallbacks.delete(this.props.ticketId, this.props.id);
     };
 
-    editInlineLabelStatusChangedHandler = (isEditing) => {
+    editInlineLabelStatusChangedHandler = (isEditing, newTaskName) => {
         this.setState({
             editing: isEditing
         });
+
+        if (!isEditing) {
+            console.log(newTaskName);
+            this.props.taskCallbacks.changeTaskName(this.props.ticketId, this.props.id, newTaskName);
+        }
     };
 
     render() {
@@ -42,7 +47,8 @@ class Task extends Component {
                        defaultChecked={this.props.done}
                        onClick={this.toggleTask}
                 />
-                <EditInlineLabel text={this.props.name}
+                <EditInlineLabel inputId={this.props.ticketId + "-" + this.props.id}
+                                 text={this.props.name}
                                  textStyle={taskTextDecoration}
                                  statusChangedCallback={this.editInlineLabelStatusChangedHandler}
                 />
