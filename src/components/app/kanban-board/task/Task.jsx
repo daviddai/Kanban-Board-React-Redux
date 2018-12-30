@@ -9,8 +9,7 @@ class Task extends Component {
         super(props);
 
         this.state = {
-            editing: false,
-            checkBoxAndIconVisibility : {'display': 'inline'}
+            editing: false
         };
     }
 
@@ -24,8 +23,7 @@ class Task extends Component {
 
     editInlineLabelStatusChangedHandler = (isEditing) => {
         this.setState({
-            editing: isEditing,
-            checkBoxAndIconVisibility: {'display': isEditing ? 'hidden' : 'inline'}
+            editing: isEditing
         });
     };
 
@@ -34,13 +32,13 @@ class Task extends Component {
             textDecoration: this.props.done ? 'line-through':'none'
         };
 
-        console.log(this.state.checkBoxAndIconVisibility);
+        const checkBoxAndIconVisibility = this.state.editing ? 'none' : 'inline';
 
         return (
             <div className="text-left">
                 <input type="checkbox"
                        className="mr-2"
-                       style={this.state.checkBoxAndIconVisibility}
+                       style={{ 'display': checkBoxAndIconVisibility }}
                        defaultChecked={this.props.done}
                        onClick={this.toggleTask}
                 />
@@ -49,7 +47,7 @@ class Task extends Component {
                                  statusChangedCallback={this.editInlineLabelStatusChangedHandler}
                 />
                 <i className="fa fa-close pl-2 text-danger icon"
-                   style={this.state.checkBoxAndIconVisibility}
+                   style={{ 'display': checkBoxAndIconVisibility }}
                    onClick={this.deleteTask}
                 />
             </div>
