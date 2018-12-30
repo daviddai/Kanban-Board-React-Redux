@@ -36,7 +36,7 @@ class TopNavBar extends Component {
                                     return (
                                         <button key={navItem.id}
                                                 id={navItem.id}
-                                                className={"btn btn-primary mx-2"}
+                                                className="btn btn-primary mx-2 font-weight-bold"
                                         >
                                             {navItem.name}
                                         </button>
