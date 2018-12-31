@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import PropTypes from "prop-types";
 
 import Modal from "react-responsive-modal";
 
@@ -6,30 +7,26 @@ export default class TicketModal extends Component {
 
     constructor(props) {
         super(props);
-
-        this.state = {
-            isOpened: false
-        };
     }
 
-    openModal = () => {
-        this.setState({
-            isOpened: true
-        });
+    notifyInvoker = () => {
+        if (this.props.handleModalOnClose != null) {
+            this.props.handleModalOnClose();
+        }
     };
 
     closeModal = () => {
-        this.setState({
-            isOpened: false
-        });
+        this.notifyInvoker();
     };
 
     render() {
-        const isOpened = this.state.isOpened;
+        const shouldOpen = this.props.showTicketModal;
+
+        console.log(shouldOpen);
 
         return (
-            <Modal open={isOpened}
-                   onClose={this.closeModal}
+            <Modal open={shouldOpen}
+                   onClose={this.closeModal()}
             >
                 <h2>Create Ticket</h2>
                 <hr/>
@@ -41,5 +38,6 @@ export default class TicketModal extends Component {
 }
 
 TicketModal.propTypes = {
-
+    showTicketModal: PropTypes.bool.isRequired,
+    handleModalOnClose: PropTypes.func
 };

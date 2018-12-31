@@ -11,7 +11,8 @@ class AppMenu extends Component {
         super(props);
         this.state = {
             menuItems: [],
-            currentSelectedMenuItemId: -1
+            currentSelectedMenuItemId: -1,
+            showTicketModal: false
         }
     }
 
@@ -52,17 +53,32 @@ class AppMenu extends Component {
     };
 
     handleMenuButtonClick = () => {
+        console.log("handleMenuButtonClick");
 
+        this.setState({
+           showTicketModal: true
+        });
+    };
+
+    handleModalOnClose = () => {
+        this.setState({
+            showTicketModal: false
+        });
     };
 
     render() {
+        const showTicketModal = this.state.showTicketModal;
+
+        console.log(showTicketModal);
+
         return (
             <React.Fragment>
                 <TopNavBar navItems={this.state.menuItems}
                            highlightNavItemId={this.state.currentSelectedMenuItemId}
                            handleNavItemClick={this.handleMenuItemClick}
+                           handleButtonClick={this.handleMenuButtonClick}
                 />
-                <TicketModal/>
+                <TicketModal showTicketModal={showTicketModal}/>
             </React.Fragment>
         );
     }

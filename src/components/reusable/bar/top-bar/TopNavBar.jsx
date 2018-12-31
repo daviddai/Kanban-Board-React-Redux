@@ -8,6 +8,11 @@ class TopNavBar extends Component {
         this.props.handleNavItemClick(event.target.getAttribute('id'));
     };
 
+    openTicketModal = (event) => {
+        console.log("openTicketModal");
+        this.props.handleButtonClick();
+    };
+
     render() {
         return (
             <nav className="navbar navbar-expand-lg navbar-light bg-dark mb-2">
@@ -37,6 +42,7 @@ class TopNavBar extends Component {
                                         <button key={navItem.id}
                                                 id={navItem.id}
                                                 className="btn btn-primary mx-2 font-weight-bold"
+                                                onClick={this.openTicketModal}
                                         >
                                             {navItem.name}
                                         </button>
@@ -55,7 +61,8 @@ class TopNavBar extends Component {
 TopNavBar.propTypes = {
     navItems: PropTypes.array,
     highlightNavItemId: PropTypes.number,
-    handleNavItemClick: PropTypes.func
+    handleNavItemClick: PropTypes.func,
+    handleButtonClick: PropTypes.func
 };
 
 export default TopNavBar;
