@@ -9,7 +9,6 @@ class TopNavBar extends Component {
     };
 
     openTicketModal = (event) => {
-        console.log("openTicketModal");
         this.props.handleButtonClick();
     };
 

@@ -53,8 +53,6 @@ class AppMenu extends Component {
     };
 
     handleMenuButtonClick = () => {
-        console.log("handleMenuButtonClick");
-
         this.setState({
            showTicketModal: true
         });
@@ -69,8 +67,6 @@ class AppMenu extends Component {
     render() {
         const showTicketModal = this.state.showTicketModal;
 
-        console.log(showTicketModal);
-
         return (
             <React.Fragment>
                 <TopNavBar navItems={this.state.menuItems}
@@ -78,7 +74,10 @@ class AppMenu extends Component {
                            handleNavItemClick={this.handleMenuItemClick}
                            handleButtonClick={this.handleMenuButtonClick}
                 />
-                <TicketModal showTicketModal={showTicketModal}/>
+                <TicketModal showTicketModal={showTicketModal}
+                             closeOnEsc={true}
+                             handleModalOnClose={this.handleModalOnClose}
+                />
             </React.Fragment>
         );
     }

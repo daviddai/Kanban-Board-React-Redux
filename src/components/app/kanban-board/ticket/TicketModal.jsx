@@ -22,11 +22,9 @@ export default class TicketModal extends Component {
     render() {
         const shouldOpen = this.props.showTicketModal;
 
-        console.log(shouldOpen);
-
         return (
             <Modal open={shouldOpen}
-                   onClose={this.closeModal()}
+                   onClose={this.closeModal}
             >
                 <h2>Create Ticket</h2>
                 <hr/>
