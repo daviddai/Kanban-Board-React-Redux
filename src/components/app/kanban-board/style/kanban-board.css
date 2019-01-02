@@ -76,5 +76,6 @@ body {
 }
 
 .create-ticket-modal {
-    width: 70%;
+    width: 50%;
+    height: 100%;
 }
