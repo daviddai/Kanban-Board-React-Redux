@@ -12,7 +12,13 @@ export default class TicketForm extends Component {
     }
 
     createNewTicket = () => {
-
+        this.state = {
+            ticket: {
+                title: "",
+                description: "",
+                tasks: []
+            }
+        };
     };
 
     cancelNewTicket = () => {
@@ -62,6 +68,7 @@ export default class TicketForm extends Component {
                             <input type="submit"
                                    value="Create"
                                    className="btn btn-success"
+                                   onSubmit={this.createNewTicket}
                             />
                             <input type="button"
                                    value="Cancel"
