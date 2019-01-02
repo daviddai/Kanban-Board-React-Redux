@@ -9,9 +9,7 @@ export default class TicketForm extends Component {
 
     constructor(props) {
         super(props);
-    }
 
-    createNewTicket = () => {
         this.state = {
             ticket: {
                 title: "",
@@ -19,6 +17,18 @@ export default class TicketForm extends Component {
                 tasks: []
             }
         };
+    }
+
+    createNewTicket = (event) => {
+        event.preventDefault();
+
+        const ticketTitle = document.getElementById("ticketTitle");
+        const ticketDescription = document.getElementById("ticketDescription");
+        // const tasks = document.getElementById("tasks").childNodes.forEach(value => {console.log(value)});
+        const tasks = [];
+        document.getElementById("tasks")
+                .childNodes
+                .forEach(childNode => tasks.push(childNode.textContent));
     };
 
     cancelNewTicket = () => {
@@ -27,7 +37,7 @@ export default class TicketForm extends Component {
 
     render() {
         return (
-            <form>
+            <form onSubmit={this.createNewTicket}>
                 <Card>
                     <CardHeader>
                         <h3>Create New Ticket</h3>
@@ -45,16 +55,17 @@ export default class TicketForm extends Component {
                         <div className="form-group row">
                             <label className="col-3 col-form-label">Description:</label>
                             <div className="col-9">
-                                        <textarea id="ticketDescription"
-                                                  className="form-control" />
+                                <textarea id="ticketDescription"
+                                          className="form-control"
+                                />
                             </div>
                         </div>
                         <div className="form-group row">
                             <label className="col-3 col-form-label">Tasks:</label>
                             <div className="col-9">
-                                <ul className="pl-3">
-                                    <li>Task 1</li>
-                                    <li>Task 2</li>
+                                <ul id="tasks" className="pl-3">
+                                    <li value="Task1">Task 1</li>
+                                    <li value="Task2">Task 2</li>
                                 </ul>
                                 <input id="taskInput"
                                        className="task-input-field"
@@ -68,7 +79,6 @@ export default class TicketForm extends Component {
                             <input type="submit"
                                    value="Create"
                                    className="btn btn-success"
-                                   onSubmit={this.createNewTicket}
                             />
                             <input type="button"
                                    value="Cancel"
