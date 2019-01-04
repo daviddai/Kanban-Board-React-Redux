@@ -7,6 +7,7 @@ import {CardHeader} from "../../../reusable/card/CardHeader";
 import {CardBody} from "../../../reusable/card/CardBody";
 import {CardFooter} from "../../../reusable/card/CardFooter";
 import {Card} from "../../../reusable/card/Card";
+import TicketFormValidator from "./TicketFormValidator";
 
 export default class TicketForm extends Component {
 
@@ -18,6 +19,12 @@ export default class TicketForm extends Component {
                 title: "",
                 description: "",
                 tasks: []
+            },
+            validations: {
+                'title': {
+                    isValid: true,
+                    message: ''
+                }
             }
         };
 
@@ -29,18 +36,14 @@ export default class TicketForm extends Component {
                 message: 'Ticket title cannot be empty.'
             }
         ];
+
+        this.ticketFormValidator = new TicketFormValidator(this.validations);
     }
 
     createNewTicket = (event) => {
         event.preventDefault();
 
-        const ticketTitle = document.getElementById("ticketTitle");
-        const ticketDescription = document.getElementById("ticketDescription");
-        // const tasks = document.getElementById("tasks").childNodes.forEach(value => {console.log(value)});
-        const tasks = [];
-        document.getElementById("tasks")
-                .childNodes
-                .forEach(childNode => tasks.push(childNode.textContent));
+        this.ticketFormValidator.validate(this.state.ticket);
     };
 
     addNewTaskToTicket = (event) => {
@@ -63,6 +66,39 @@ export default class TicketForm extends Component {
         this.props.ticketFormCancelledCallback();
     };
 
+    inputOnChangeHandler = (event) => {
+        let newTicket;
+        const newVal = event.target.value;
+
+        switch (event.target.id) {
+            case 'title':
+                newTicket = update(this.state.ticket, {
+                   title: {
+                       $apply: () => {
+                           return newVal;
+                       }
+                   }
+                });
+                break;
+            case 'description':
+                newTicket = update(this.state.ticket, {
+                    description: {
+                        $apply: () => {
+                            return newVal;
+                        }
+                    }
+                });
+                break;
+        }
+
+        const validationResults = this.ticketFormValidator.validate(newTicket);
+
+        this.setState({
+            ticket: newTicket,
+            validations: validationResults
+        });
+    };
+
     render() {
         const tasks = this.state.ticket.tasks.map((task, i) => (
             <li value={"Task" + i}>{task}</li>
@@ -78,17 +114,22 @@ export default class TicketForm extends Component {
                         <div className="form-group row">
                             <label className="col-3 col-form-label">Title:</label>
                             <div className="col-9">
-                                <input id="ticketTitle"
-                                       className="form-control"
+                                <input id="title"
                                        type="text"
+                                       className="form-control"
+                                       onChange={this.inputOnChangeHandler}
                                 />
+                                <label style={{ 'display': this.state.validations.title.isValid ? 'none' : 'inline'}}>
+                                    {this.state.validations.title.message}
+                                </label>
                             </div>
                         </div>
                         <div className="form-group row">
                             <label className="col-3 col-form-label">Description:</label>
                             <div className="col-9">
-                                <textarea id="ticketDescription"
+                                <textarea id="description"
                                           className="form-control"
+                                          onChange={this.inputOnChangeHandler}
                                 />
                             </div>
                         </div>
