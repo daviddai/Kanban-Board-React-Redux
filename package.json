@@ -34,6 +34,7 @@
     "sass-loader": "^7.0.3",
     "slick-carousel": "^1.8.1",
     "style-loader": "^0.21.0",
+    "validator-js": "^0.2.1",
     "webpack": "^4.12.1",
     "webpack-cli": "^3.0.8",
     "webpack-dev-server": "^3.1.4"
