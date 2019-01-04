@@ -120,7 +120,10 @@ export default class TicketForm extends Component {
                                        onChange={this.inputOnChangeHandler}
                                 />
                                 <label style={{ 'display': this.state.validations.title.isValid ? 'none' : 'inline'}}>
-                                    {this.state.validations.title.message}
+                                    <div className="mt-1 text-danger">
+                                        <span className="fa fa-exclamation-circle mr-1" />
+                                        {this.state.validations.title.message}
+                                    </div>
                                 </label>
                             </div>
                         </div>
