@@ -9,7 +9,7 @@ class TaskList extends Component {
     }
 
     render() {
-        let tasks = this.props.tasks.map(task => (
+        const tasks = this.props.tasks.map(task => (
             <Task key={task.id}
                   id={task.id}
                   ticketId={this.props.ticketId}

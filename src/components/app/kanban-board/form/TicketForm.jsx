@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import PropTypes from "prop-types";
+import update from 'react-addons-update';
 import {CardHeader} from "../../../reusable/card/CardHeader";
 import {CardBody} from "../../../reusable/card/CardBody";
 import {CardFooter} from "../../../reusable/card/CardFooter";
@@ -31,11 +32,31 @@ export default class TicketForm extends Component {
                 .forEach(childNode => tasks.push(childNode.textContent));
     };
 
+    addNewTaskToTicket = (event) => {
+        if (event.key === 'Enter') {
+            const newTicket = update(this.state.ticket, {
+                tasks: {
+                    $push: [event.target.value]
+                }
+            });
+
+            this.setState({
+                ticket: newTicket
+            });
+
+            event.target.value = '';
+        }
+    };
+
     cancelNewTicket = () => {
         this.props.ticketFormCancelledCallback();
     };
 
     render() {
+        const tasks = this.state.ticket.tasks.map((task, i) => (
+            <li value={"Task" + i}>{task}</li>
+        ));
+
         return (
             <form onSubmit={this.createNewTicket}>
                 <Card>
@@ -64,12 +85,12 @@ export default class TicketForm extends Component {
                             <label className="col-3 col-form-label">Tasks:</label>
                             <div className="col-9">
                                 <ul id="tasks" className="pl-3">
-                                    <li value="Task1">Task 1</li>
-                                    <li value="Task2">Task 2</li>
+                                    {tasks}
                                 </ul>
                                 <input id="taskInput"
                                        className="task-input-field"
                                        placeholder="type and enter to add new task"
+                                       onKeyUp={this.addNewTaskToTicket}
                                 />
                             </div>
                         </div>
