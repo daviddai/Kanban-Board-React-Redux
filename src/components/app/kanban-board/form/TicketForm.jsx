@@ -33,7 +33,7 @@ export default class TicketForm extends Component {
     };
 
     addNewTaskToTicket = (event) => {
-        if (event.key === 'Enter') {
+        if (event.key === 'Enter' && event.target.value !== '') {
             const newTicket = update(this.state.ticket, {
                 tasks: {
                     $push: [event.target.value]
