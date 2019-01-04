@@ -1,6 +1,8 @@
 import React, {Component} from "react";
 import PropTypes from "prop-types";
 import update from 'react-addons-update';
+import validator from "validator";
+
 import {CardHeader} from "../../../reusable/card/CardHeader";
 import {CardBody} from "../../../reusable/card/CardBody";
 import {CardFooter} from "../../../reusable/card/CardFooter";
@@ -18,6 +20,15 @@ export default class TicketForm extends Component {
                 tasks: []
             }
         };
+
+        this.validations = [
+            {
+                field: 'title',
+                method: validator.isEmpty,
+                validWhen: false,
+                message: 'Ticket title cannot be empty.'
+            }
+        ];
     }
 
     createNewTicket = (event) => {
