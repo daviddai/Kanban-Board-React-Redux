@@ -46,7 +46,15 @@ export default class TicketForm extends Component {
     createNewTicket = (event) => {
         event.preventDefault();
 
-        this.ticketFormValidator.validate(this.state.ticket);
+        const ticketFormValidation = this.ticketFormValidator.validate(this.state.ticket);
+
+        this.setState({
+            ticketFormValidation: ticketFormValidation
+        });
+
+        if (ticketFormValidation.isFormValid) {
+
+        }
     };
 
     addNewTaskToTicket = (event) => {

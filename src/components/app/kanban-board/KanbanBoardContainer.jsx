@@ -57,6 +57,16 @@ class KanbanBoardContainer extends  Component {
         });
     };
 
+    addTicket = (ticket) => {
+        const newTickets = update(this.state.tickets, {
+            $push: [ticket]
+        });
+
+        this.setState({
+            tickets: newTickets
+        });
+    };
+
     addTask = (ticketId, taskName) => {
         const ticketIndex = this.findTicketIndex(ticketId);
 
