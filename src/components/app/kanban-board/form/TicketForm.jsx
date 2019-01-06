@@ -7,7 +7,7 @@ import {CardHeader} from "../../../reusable/card/CardHeader";
 import {CardBody} from "../../../reusable/card/CardBody";
 import {CardFooter} from "../../../reusable/card/CardFooter";
 import {Card} from "../../../reusable/card/Card";
-import TicketFormValidator from "./TicketFormValidator";
+import FormValidator from "../../../reusable/form/validator/FormValidator";
 
 export default class TicketForm extends Component {
 
@@ -20,10 +20,13 @@ export default class TicketForm extends Component {
                 description: "",
                 tasks: []
             },
-            validations: {
-                'title': {
-                    isValid: true,
-                    message: ''
+            ticketFormValidation: {
+                isFormValid: false,
+                validationResults: {
+                    'title': {
+                        isValid: true,
+                        message: ''
+                    }
                 }
             }
         };
@@ -37,7 +40,7 @@ export default class TicketForm extends Component {
             }
         ];
 
-        this.ticketFormValidator = new TicketFormValidator(this.validations);
+        this.ticketFormValidator = new FormValidator(this.validations);
     }
 
     createNewTicket = (event) => {
@@ -95,7 +98,7 @@ export default class TicketForm extends Component {
 
         this.setState({
             ticket: newTicket,
-            validations: validationResults
+            ticketFormValidation: validationResults
         });
     };
 
@@ -103,6 +106,9 @@ export default class TicketForm extends Component {
         const tasks = this.state.ticket.tasks.map((task, i) => (
             <li value={"Task" + i}>{task}</li>
         ));
+
+        const isTicketFormValid = this.state.ticketFormValidation.isFormValid;
+        const validationResults = this.state.ticketFormValidation.validationResults;
 
         return (
             <form onSubmit={this.createNewTicket}>
@@ -119,10 +125,10 @@ export default class TicketForm extends Component {
                                        className="form-control"
                                        onChange={this.inputOnChangeHandler}
                                 />
-                                <label style={{ 'display': this.state.validations.title.isValid ? 'none' : 'inline'}}>
+                                <label style={{ 'display': validationResults.title.isValid ? 'none' : 'inline'}}>
                                     <div className="mt-1 text-danger">
                                         <span className="fa fa-exclamation-circle mr-1" />
-                                        {this.state.validations.title.message}
+                                        {this.state.ticketFormValidation.validationResults.title.message}
                                     </div>
                                 </label>
                             </div>
@@ -155,6 +161,7 @@ export default class TicketForm extends Component {
                             <input type="submit"
                                    value="Create"
                                    className="btn btn-success"
+                                   disabled={!isTicketFormValid}
                             />
                             <input type="button"
                                    value="Cancel"

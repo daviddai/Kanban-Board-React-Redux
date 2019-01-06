@@ -1,11 +1,14 @@
-class TicketFormValidator {
+class FormValidator {
 
     constructor(validations) {
         this.validations = validations;
     }
 
     validate(ticket) {
-        let validationResults = {};
+        let formValidation = {
+            isFormValid: true,
+            validationResults: {}
+        };
 
         this.validations.forEach(validator => {
             const isValid = validator.method(ticket[validator.field]) === validator.validWhen;
@@ -15,15 +18,16 @@ class TicketFormValidator {
             };
 
             if (!isValid) {
+                formValidation.isFormValid = false;
                 validationResult.message = validator.message;
             }
 
-            validationResults[validator.field] = validationResult;
+            formValidation.validationResults[validator.field] = validationResult;
         });
 
-        return validationResults;
+        return formValidation;
     }
 
 }
 
-export default TicketFormValidator;
+export default FormValidator;
