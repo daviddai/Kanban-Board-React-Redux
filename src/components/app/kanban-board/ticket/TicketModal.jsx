@@ -17,6 +17,10 @@ export default class TicketModal extends Component {
         }
     };
 
+    notifyTicketCreation = (ticket) => {
+
+    };
+
     closeModal = () => {
         this.notifyInvoker();
     };
@@ -32,7 +36,9 @@ export default class TicketModal extends Component {
                    closeOnOverlayClick={false}
                    animationDuration={500}
             >
-                <TicketForm ticketFormCancelledCallback={this.closeModal}/>
+                <TicketForm ticketCreatedCallback={this.notifyTicketCreation}
+                            ticketFormCancelledCallback={this.closeModal}
+                />
             </Modal>
         );
     }

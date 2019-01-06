@@ -186,5 +186,6 @@ export default class TicketForm extends Component {
 }
 
 TicketForm.propTypes = {
+    ticketCreatedCallback: PropTypes.func,
     ticketFormCancelledCallback: PropTypes.func
 };
