@@ -13,6 +13,14 @@ import {TicketStatus} from "./kanban-board/ticket/TicketStatus";
 
 class App extends Component {
 
+    constructor(props) {
+        super(props);
+
+        this.state = {
+
+        };
+    }
+
     render() {
         let tickets = [
             {
