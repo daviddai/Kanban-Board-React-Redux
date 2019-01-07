@@ -1,6 +1,6 @@
 import {createStore} from "redux";
 
-import kanbanReducer from "../store/index";
+import kanbanReducer from "../reducers/kandan-board/KanbanReducer";
 
 const store = createStore(
     kanbanReducer

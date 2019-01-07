@@ -1,10 +1,27 @@
 import React, {Component} from "react";
+import PropTypes from "prop-types";
 import KanbanBoard from "./KanbanBoard";
 import axios from "axios";
 import update from 'react-addons-update';
 import {TicketStatus} from "./ticket/TicketStatus";
 
-class KanbanBoardContainer extends  Component {
+import {connect} from "react-redux";
+
+import {loadTickets} from "../../../actions/kanban-board/kanbanBoardAction";
+
+const mapDispatchToProps = dispatch => {
+    return {
+        loadTickets: tickets => dispatch(loadTickets(tickets))
+    };
+};
+
+const mapStateToProps = state => {
+    return {
+        tickets: state.tickets
+    }
+};
+
+class ConnectedKanbanBoardContainer extends Component {
 
     constructor(props) {
         super(props);
@@ -26,6 +43,8 @@ class KanbanBoardContainer extends  Component {
                          "tickets": tickets
                      }
                  );
+
+                 this.props.loadTickets(tickets);
              })
              .catch(error => {
                 console.log("KanbanBoardContainer: " + error.message);
@@ -250,7 +269,7 @@ class KanbanBoardContainer extends  Component {
 
     render() {
         return (
-            <KanbanBoard tickets={this.state.tickets}
+            <KanbanBoard tickets={this.props.tickets}
                          taskCallbacks={{
                              toggle: this.toggleTask,
                              add: this.addTask,
@@ -263,5 +282,11 @@ class KanbanBoardContainer extends  Component {
     }
 
 }
+
+ConnectedKanbanBoardContainer.propTypes = {
+    tickets: PropTypes.array.isRequired
+};
+
+const KanbanBoardContainer = connect(mapStateToProps, mapDispatchToProps)(ConnectedKanbanBoardContainer);
 
 export default KanbanBoardContainer;

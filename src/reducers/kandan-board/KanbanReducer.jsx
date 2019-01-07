@@ -1,9 +1,10 @@
 import {ADD_TICKET, LOAD_TICKETS} from "../../constants/ActionTypes";
 
-const kanbanReducer = (state = {ticket: []}, action) => {
+const kanbanReducer = (state = {tickets: []}, action) => {
     switch (action.type) {
         case ADD_TICKET:
-        case LOAD_TICKETS:
+        case LOAD_TICKETS: return {tickets: action.payload};
+        default: return state;
     }
 };
 
