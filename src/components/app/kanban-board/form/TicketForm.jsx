@@ -1,7 +1,9 @@
 import React, {Component} from "react";
 import PropTypes from "prop-types";
+
 import update from 'react-addons-update';
 import validator from "validator";
+import axios from "axios";
 
 import {CardHeader} from "../../../reusable/card/CardHeader";
 import {CardBody} from "../../../reusable/card/CardBody";
@@ -16,14 +18,14 @@ export default class TicketForm extends Component {
 
         this.state = {
             ticket: {
-                title: "",
-                description: "",
-                tasks: []
+                ticketTitle: "",
+                ticketDescription: "",
+                ticketTasks: []
             },
             ticketFormValidation: {
                 isFormValid: false,
                 validationResults: {
-                    'title': {
+                    'ticketTitle': {
                         isValid: true,
                         message: ''
                     }
@@ -33,7 +35,7 @@ export default class TicketForm extends Component {
 
         this.validations = [
             {
-                field: 'title',
+                field: 'ticketTitle',
                 method: validator.isEmpty,
                 validWhen: false,
                 message: 'Ticket title cannot be empty.'
@@ -53,7 +55,13 @@ export default class TicketForm extends Component {
         });
 
         if (ticketFormValidation.isFormValid) {
-
+            axios.post("http://localhost:8083/ticket/create", this.state.ticket)
+                 .then(response => {
+                    console.log(response.data);
+                 })
+                 .catch(error => {
+                     console.log(error);
+                 })
         }
     };
 
@@ -84,7 +92,7 @@ export default class TicketForm extends Component {
         switch (event.target.id) {
             case 'title':
                 newTicket = update(this.state.ticket, {
-                   title: {
+                   ticketTitle: {
                        $apply: () => {
                            return newVal;
                        }
@@ -111,7 +119,7 @@ export default class TicketForm extends Component {
     };
 
     render() {
-        const tasks = this.state.ticket.tasks.map((task, i) => (
+        const tasks = this.state.ticket.ticketTasks.map((task, i) => (
             <li value={"Task" + i}>{task}</li>
         ));
 
@@ -133,10 +141,10 @@ export default class TicketForm extends Component {
                                        className="form-control"
                                        onChange={this.inputOnChangeHandler}
                                 />
-                                <label style={{ 'display': validationResults.title.isValid ? 'none' : 'inline'}}>
+                                <label style={{ 'display': validationResults.ticketTitle.isValid ? 'none' : 'inline'}}>
                                     <div className="mt-1 text-danger">
                                         <span className="fa fa-exclamation-circle mr-1" />
-                                        {this.state.ticketFormValidation.validationResults.title.message}
+                                        {this.state.ticketFormValidation.validationResults.ticketTitle.message}
                                     </div>
                                 </label>
                             </div>
