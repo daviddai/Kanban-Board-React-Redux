@@ -20,7 +20,7 @@ export default class TicketForm extends Component {
             ticket: {
                 ticketTitle: "",
                 ticketDescription: "",
-                ticketTasks: []
+                taskNames: []
             },
             ticketFormValidation: {
                 isFormValid: false,
@@ -57,7 +57,7 @@ export default class TicketForm extends Component {
         if (ticketFormValidation.isFormValid) {
             axios.post("http://localhost:8083/ticket/create", this.state.ticket)
                  .then(response => {
-                    console.log(response.data);
+                    console.log(response.data.ticketDTO);
                  })
                  .catch(error => {
                      console.log(error);
@@ -68,7 +68,7 @@ export default class TicketForm extends Component {
     addNewTaskToTicket = (event) => {
         if (event.key === 'Enter' && event.target.value !== '') {
             const newTicket = update(this.state.ticket, {
-                tasks: {
+                taskNames: {
                     $push: [event.target.value]
                 }
             });
@@ -101,7 +101,7 @@ export default class TicketForm extends Component {
                 break;
             case 'description':
                 newTicket = update(this.state.ticket, {
-                    description: {
+                    ticketDescription: {
                         $apply: () => {
                             return newVal;
                         }
@@ -118,16 +118,24 @@ export default class TicketForm extends Component {
         });
     };
 
+    formOnKeyPressedHandler = (event) => {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+        }
+    };
+
     render() {
-        const tasks = this.state.ticket.ticketTasks.map((task, i) => (
-            <li value={"Task" + i}>{task}</li>
+        const tasks = this.state.ticket.taskNames.map((task, i) => (
+            <li key={i} value={"Task" + i}>{task}</li>
         ));
 
         const isTicketFormValid = this.state.ticketFormValidation.isFormValid;
         const validationResults = this.state.ticketFormValidation.validationResults;
 
         return (
-            <form onSubmit={this.createNewTicket}>
+            <form onSubmit={this.createNewTicket}
+                  onKeyPress={this.formOnKeyPressedHandler}
+            >
                 <Card>
                     <CardHeader>
                         <h3>Create New Ticket</h3>
