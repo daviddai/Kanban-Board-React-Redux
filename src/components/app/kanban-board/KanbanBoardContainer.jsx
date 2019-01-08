@@ -7,7 +7,7 @@ import {TicketStatus} from "./ticket/TicketStatus";
 
 import {connect} from "react-redux";
 
-import {deleteTask, loadTickets, toggleTaskStatus} from "../../../actions/kanban-board/kanbanBoardAction";
+import {addTask, deleteTask, loadTickets, toggleTaskStatus} from "../../../actions/kanban-board/kanbanBoardAction";
 
 const mapStateToProps = state => {
     return {
@@ -48,36 +48,7 @@ class ConnectedKanbanBoardContainer extends Component {
     };
 
     addTask = (ticketId, taskName) => {
-        const ticketIndex = this.findTicketIndex(ticketId);
-
-        if (ticketIndex != -1) {
-            let newTask = {
-                id: -1,
-                name: taskName,
-                done: false,
-                ticketId: ticketId
-            };
-
-            axios.post("http://localhost:8083/task/add", newTask)
-                 .then(response => {
-                     if (response.data.succeed) {
-                         newTask.id = response.data.taskId;
-
-                         const newTickets = update(this.state.tickets, {
-                             [ticketIndex]: {
-                                 tasks: { $push: [newTask] }
-                             }
-                         });
-
-                         this.setState({
-                             tickets: newTickets
-                         });
-                     }
-                 })
-                 .catch(error => {
-                    console.log(error);
-                 });
-        }
+        this.props.addTask(ticketId, taskName);
     };
 
     changeTaskName = (ticketId, taskId, newTaskName) => {
@@ -200,6 +171,7 @@ const KanbanBoardContainer = connect(mapStateToProps,
                                     {
                                         loadTickets,
                                         toggleTaskStatus,
+                                        addTask,
                                         deleteTask
                                     })(ConnectedKanbanBoardContainer);
 

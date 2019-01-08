@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import {ADD_TICKET, DELETE_TASK, LOAD_TICKETS, TOGGLE_TASK_STATUS} from "../../constants/ActionTypes";
+import {ADD_TASK, ADD_TICKET, DELETE_TASK, LOAD_TICKETS, TOGGLE_TASK_STATUS} from "../../constants/ActionTypes";
 import {TicketStatus} from "../../components/app/kanban-board/ticket/TicketStatus";
 
 const tickets = [
@@ -51,6 +51,33 @@ export const loadTickets = () => {
                             type: LOAD_TICKETS,
                             payload: tickets
                         });
+                    });
+    };
+};
+
+export const addTask = (ticketId, taskName) => {
+    return (dispatch) => {
+        let newTask = {
+            id: -1,
+            name: taskName,
+            done: false,
+            ticketId: ticketId
+        };
+
+        return axios.post("http://localhost:8083/task/add", newTask)
+                    .then(response => {
+                        if (response.data.succeed) {
+                            newTask.id = response.data.taskId;
+                            dispatch({
+                               type: ADD_TASK,
+                               payload: {
+                                   newTask: newTask
+                               }
+                            });
+                        }
+                    })
+                    .catch(error => {
+                        console.log(error);
                     });
     };
 };
