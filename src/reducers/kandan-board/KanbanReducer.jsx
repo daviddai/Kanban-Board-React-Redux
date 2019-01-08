@@ -1,24 +1,52 @@
-import {ADD_TICKET, LOAD_TICKETS, TOGGLE_TASK_STATUS} from "../../constants/ActionTypes";
+import update from 'react-addons-update';
+import {ADD_TICKET, DELETE_TASK, LOAD_TICKETS, TOGGLE_TASK_STATUS} from "../../constants/ActionTypes";
 
 const kanbanReducer = (state = {tickets: []}, action) => {
+    const payload = action.payload;
+
     switch (action.type) {
         case ADD_TICKET:
         case LOAD_TICKETS:
-            return {tickets: action.payload};
+            return {tickets: payload};
         case TOGGLE_TASK_STATUS:
-            const payload = action.payload;
-            let newTickets = Object.assign([], state.tickets);
-            updateTaskStatus(newTickets, payload.ticketId, payload.taskId, payload.done);
-            return {tickets: newTickets};
+            return {tickets: updateTaskStatus(state.tickets, payload.ticketId, payload.taskId, payload.done)};
+        case DELETE_TASK:
+            return {tickets: deleteTask(state.tickets, payload.ticketId, payload.taskId)};
         default:
             return state;
     }
 };
 
-const updateTaskStatus = (newTickets, ticketId, taskId, newTaskStatus) => {
-    const ticketIndex = findTicketIndex(ticketId, newTickets);
-    const taskIndex = findTaskIndex(taskId, newTickets[ticketIndex].tasks);
-    newTickets[ticketIndex].tasks[taskIndex].done = newTaskStatus;
+const updateTaskStatus = (tickets, ticketId, taskId, newTaskStatus) => {
+    const ticketIndex = findTicketIndex(ticketId, tickets);
+    const taskIndex = findTaskIndex(taskId, tickets[ticketIndex].tasks);
+
+    return update(tickets, {
+        [ticketIndex]: {
+            tasks: {
+                [taskIndex]: {
+                    done: {
+                        $apply: () => {
+                            return newTaskStatus;
+                        }
+                    }
+                }
+            }
+        }
+    });
+};
+
+const deleteTask = (tickets, ticketId, taskId) => {
+    const ticketIndex = findTicketIndex(ticketId, tickets);
+    const taskIndex = findTaskIndex(taskId, tickets[ticketIndex].tasks);
+
+    return update(tickets, {
+        [ticketIndex]: {
+            tasks: {
+                $splice: [[taskIndex, 1]]
+            }
+        }
+    });
 };
 
 const findTicketIndex = (ticketId, tickets) => {

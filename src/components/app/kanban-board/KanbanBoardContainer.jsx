@@ -7,7 +7,7 @@ import {TicketStatus} from "./ticket/TicketStatus";
 
 import {connect} from "react-redux";
 
-import {loadTickets, toggleTaskStatus} from "../../../actions/kanban-board/kanbanBoardAction";
+import {deleteTask, loadTickets, toggleTaskStatus} from "../../../actions/kanban-board/kanbanBoardAction";
 
 const mapStateToProps = state => {
     return {
@@ -120,30 +120,7 @@ class ConnectedKanbanBoardContainer extends Component {
     };
 
     deleteTask = (ticketId, taskId) => {
-        const ticketIndex = this.findTicketIndex(ticketId);
-        const taskIndex = this.findTaskIndex(taskId, this.state.tickets[ticketIndex])
-
-        if (ticketIndex != -1 && taskIndex != -1) {
-            axios.post("http://localhost:8083/task/delete/" + ticketId + "/" + taskId)
-                 .then(response => {
-                     if (response.data.succeed) {
-                         const newTickets = update(this.state.tickets, {
-                             [ticketIndex]: {
-                                 tasks: {
-                                     $splice: [[taskIndex, 1]]
-                                 }
-                             }
-                         });
-
-                         this.setState({
-                             tickets: newTickets
-                         });
-                     }
-                 })
-                 .catch(error => {
-                     console.log(error);
-                 });
-        }
+        this.props.deleteTask(ticketId, taskId);
     };
 
     toggleTask = (ticketId, taskId) => {
@@ -219,6 +196,11 @@ ConnectedKanbanBoardContainer.propTypes = {
     tickets: PropTypes.array.isRequired
 };
 
-const KanbanBoardContainer = connect(mapStateToProps, {loadTickets, toggleTaskStatus})(ConnectedKanbanBoardContainer);
+const KanbanBoardContainer = connect(mapStateToProps,
+                                    {
+                                        loadTickets,
+                                        toggleTaskStatus,
+                                        deleteTask
+                                    })(ConnectedKanbanBoardContainer);
 
 export default KanbanBoardContainer;
