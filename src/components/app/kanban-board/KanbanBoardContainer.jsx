@@ -151,7 +151,7 @@ class ConnectedKanbanBoardContainer extends Component {
         const taskIndex = this.findTaskIndex(taskId, this.props.tickets[ticketIndex]);
 
         if (ticketIndex != -1 && taskIndex != -1) {
-            const oldStatus = this.state.tickets[ticketIndex].tasks[taskIndex].done;
+            const oldStatus = this.props.tickets[ticketIndex].tasks[taskIndex].done;
             this.props.toggleTaskStatus(ticketId, taskId, oldStatus);
         }
     };

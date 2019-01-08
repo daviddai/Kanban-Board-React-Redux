@@ -35,7 +35,7 @@ export const loadTickets = () => {
                     .then(
                         response => {
                             const tickets = response.data.map(ticket => {
-                                ticket.color = getTicketSideColorByStatus(ticket.status);
+                                ticket.status = getTicketSideColorByStatus(ticket.status);
                                 return ticket;
                             });
 
@@ -85,10 +85,10 @@ export const toggleTaskStatus = (ticketId, taskId, oldTaskStatus) => {
 
 const getTicketSideColorByStatus = (status) => {
     if (status === 'todo') {
-        return '#3A7E28'
+        return TicketStatus.todo;
     } else if (status === 'in-progress') {
-        return '#BD8D31';
+        return TicketStatus.inProgress;
     } else {
-        return '';
+        return TicketStatus.finished;
     }
 };
