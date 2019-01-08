@@ -53,7 +53,7 @@ class TicketList extends Component {
         ));
 
         return connectDropTarget(
-            <div className={`ticket-list px-1 text-center ${isOver ? "ticket-list-hover-border":""}`}>
+            <div className={`ticket-list px-3 text-center ${isOver ? "ticket-list-hover-border":""}`}>
                 <h3>{this.props.title}</h3>
                 {ticketList}
             </div>
