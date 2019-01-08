@@ -9,12 +9,6 @@ import {connect} from "react-redux";
 
 import {loadTickets} from "../../../actions/kanban-board/kanbanBoardAction";
 
-const mapDispatchToProps = dispatch => {
-    return {
-        loadTickets: tickets => dispatch(loadTickets(tickets))
-    };
-};
-
 const mapStateToProps = state => {
     return {
         tickets: state.tickets
@@ -25,43 +19,10 @@ class ConnectedKanbanBoardContainer extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            tickets: []
-        };
     }
 
-    loadTickets = () => {
-        axios.get("http://localhost:8083/ticket/all")
-             .then(response => {
-                 let tickets = response.data.map(ticket => {
-                    ticket.status = this.getTicketStatus(ticket.status);
-                    return ticket;
-                 });
-
-                 this.setState(
-                     {
-                         "tickets": tickets
-                     }
-                 );
-
-                 this.props.loadTickets(tickets);
-             })
-             .catch(error => {
-                console.log("KanbanBoardContainer: " + error.message);
-
-                alert("Failed to connect to service!")
-
-                // use fall back data
-                this.setState(
-                    {
-                        "tickets": this.props.tickets
-                    }
-                );
-             });
-    };
-
     componentDidMount() {
-        this.loadTickets();
+        this.props.loadTickets();
     }
 
     findTicketIndex = (ticketId) => {
@@ -287,6 +248,6 @@ ConnectedKanbanBoardContainer.propTypes = {
     tickets: PropTypes.array.isRequired
 };
 
-const KanbanBoardContainer = connect(mapStateToProps, mapDispatchToProps)(ConnectedKanbanBoardContainer);
+const KanbanBoardContainer = connect(mapStateToProps, {loadTickets})(ConnectedKanbanBoardContainer);
 
 export default KanbanBoardContainer;
