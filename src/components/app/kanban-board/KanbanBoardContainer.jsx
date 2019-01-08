@@ -53,7 +53,7 @@ class ConnectedKanbanBoardContainer extends Component {
 
     changeTaskName = (ticketId, taskId, newTaskName) => {
         const ticketIndex = this.findTicketIndex(ticketId);
-        const taskIndex = this.findTaskIndex(taskId, this.state.tickets[ticketIndex]);
+        const taskIndex = this.findTaskIndex(taskId, this.props.tickets[ticketIndex]);
 
         if (ticketIndex != -1 && taskIndex != -1) {
             const updateTaskNameRequest = {
