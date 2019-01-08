@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import {ADD_TICKET, LOAD_TICKETS, TOGGLE_TASK_STATUS} from "../../constants/ActionTypes";
+import {ADD_TICKET, DELETE_TASK, LOAD_TICKETS, TOGGLE_TASK_STATUS} from "../../constants/ActionTypes";
 import {TicketStatus} from "../../components/app/kanban-board/ticket/TicketStatus";
 
 const tickets = [
@@ -74,6 +74,26 @@ export const toggleTaskStatus = (ticketId, taskId, oldTaskStatus) => {
                                     "taskId": taskId,
                                     "done": newTaskStatus
                                 }
+                            });
+                        }
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
+    };
+};
+
+export const deleteTask = (ticketId, taskId) => {
+    return (dispatch) => {
+        return axios.post("http://localhost:8083/task/delete/" + ticketId + "/" + taskId)
+                    .then(response => {
+                        if (response.data.succeed) {
+                            dispatch({
+                               type: DELETE_TASK,
+                               payload: {
+                                   ticketId: ticketId,
+                                   taskId: taskId
+                               }
                             });
                         }
                     })
