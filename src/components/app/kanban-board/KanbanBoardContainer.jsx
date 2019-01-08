@@ -7,7 +7,13 @@ import {TicketStatus} from "./ticket/TicketStatus";
 
 import {connect} from "react-redux";
 
-import {addTask, deleteTask, loadTickets, toggleTaskStatus} from "../../../actions/kanban-board/kanbanBoardAction";
+import {
+    addTask,
+    deleteTask,
+    loadTickets,
+    toggleTaskStatus,
+    updateTaskName
+} from "../../../actions/kanban-board/kanbanBoardAction";
 
 const mapStateToProps = state => {
     return {
@@ -52,42 +58,7 @@ class ConnectedKanbanBoardContainer extends Component {
     };
 
     changeTaskName = (ticketId, taskId, newTaskName) => {
-        const ticketIndex = this.findTicketIndex(ticketId);
-        const taskIndex = this.findTaskIndex(taskId, this.props.tickets[ticketIndex]);
-
-        if (ticketIndex != -1 && taskIndex != -1) {
-            const updateTaskNameRequest = {
-                ticketId: ticketId,
-                taskId: taskId,
-                taskName: newTaskName
-            };
-
-            axios.post("http://localhost:8083/task/update/name", updateTaskNameRequest)
-                 .then(response => {
-                     if (response.data.succeed) {
-                         const newTickets = update(this.state.tickets, {
-                             [ticketIndex]: {
-                                 tasks: {
-                                     [taskIndex]: {
-                                         name: {
-                                             $apply: () => {
-                                                 return newTaskName;
-                                             }
-                                         }
-                                     }
-                                 }
-                             }
-                         });
-
-                         this.setState({
-                             tickets: newTickets
-                         });
-                     }
-                 })
-                 .catch(error => {
-                     console.log(error);
-                 });
-        }
+        this.props.updateTaskName(ticketId, taskId, newTaskName);
     };
 
     deleteTask = (ticketId, taskId) => {
@@ -172,6 +143,7 @@ const KanbanBoardContainer = connect(mapStateToProps,
                                         loadTickets,
                                         toggleTaskStatus,
                                         addTask,
+                                        updateTaskName,
                                         deleteTask
                                     })(ConnectedKanbanBoardContainer);
 

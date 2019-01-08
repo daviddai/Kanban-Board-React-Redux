@@ -2,11 +2,11 @@ import {applyMiddleware, createStore} from "redux";
 
 import thunk from "redux-thunk";
 
-import kanbanReducer from "../reducers/kandan-board/KanbanReducer";
+import kanbanBoardReducer from "../reducers/kandan-board/KanbanBoardReducer";
 import {kanbanBoardMiddleware} from "../middleware/KanbanBoardMiddleware";
 
 const store = createStore(
-    kanbanReducer,
+    kanbanBoardReducer,
     applyMiddleware(kanbanBoardMiddleware, thunk)
 );
 

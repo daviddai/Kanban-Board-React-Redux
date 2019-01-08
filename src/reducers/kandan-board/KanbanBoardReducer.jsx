@@ -1,7 +1,14 @@
 import update from 'react-addons-update';
-import {ADD_TASK, ADD_TICKET, DELETE_TASK, LOAD_TICKETS, TOGGLE_TASK_STATUS} from "../../constants/ActionTypes";
+import {
+    ADD_TASK,
+    ADD_TICKET,
+    DELETE_TASK,
+    LOAD_TICKETS,
+    TOGGLE_TASK_STATUS,
+    UPDATE_TASK_NAME
+} from "../../constants/ActionTypes";
 
-const kanbanReducer = (state = {tickets: []}, action) => {
+const kanbanBoardReducer = (state = {tickets: []}, action) => {
     const payload = action.payload;
 
     console.log(payload);
@@ -12,6 +19,8 @@ const kanbanReducer = (state = {tickets: []}, action) => {
             return {tickets: payload};
         case ADD_TASK:
             return {tickets: addTask(state.tickets, payload.newTask)};
+        case UPDATE_TASK_NAME:
+            return {tickets: updateTaskName(state.tickets, payload.ticketId, payload.taskId, payload.taskName)};
         case TOGGLE_TASK_STATUS:
             return {tickets: updateTaskStatus(state.tickets, payload.ticketId, payload.taskId, payload.done)};
         case DELETE_TASK:
@@ -27,6 +36,25 @@ const addTask = (tickets, newTask) => {
     return update(tickets, {
         [ticketIndex]: {
             tasks: { $push: [newTask] }
+        }
+    });
+};
+
+const updateTaskName = (tickets, ticketId, taskId, newTaskName) => {
+    const ticketIndex = findTicketIndex(ticketId, tickets);
+    const taskIndex = findTaskIndex(taskId, tickets[ticketIndex].tasks);
+
+    return update(this.state.tickets, {
+        [ticketIndex]: {
+            tasks: {
+                [taskIndex]: {
+                    name: {
+                        $apply: () => {
+                            return newTaskName;
+                        }
+                    }
+                }
+            }
         }
     });
 };
@@ -75,4 +103,4 @@ const findTaskIndex = (taskId, tasks) => {
     })
 };
 
-export default kanbanReducer;
+export default kanbanBoardReducer;
