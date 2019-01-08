@@ -4,6 +4,8 @@ import {ADD_TICKET, DELETE_TASK, LOAD_TICKETS, TOGGLE_TASK_STATUS} from "../../c
 const kanbanReducer = (state = {tickets: []}, action) => {
     const payload = action.payload;
 
+    console.log(payload);
+
     switch (action.type) {
         case ADD_TICKET:
         case LOAD_TICKETS:
