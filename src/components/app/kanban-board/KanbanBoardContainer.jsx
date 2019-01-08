@@ -7,7 +7,7 @@ import {TicketStatus} from "./ticket/TicketStatus";
 
 import {connect} from "react-redux";
 
-import {loadTickets} from "../../../actions/kanban-board/kanbanBoardAction";
+import {loadTickets, toggleTaskStatus} from "../../../actions/kanban-board/kanbanBoardAction";
 
 const mapStateToProps = state => {
     return {
@@ -26,7 +26,7 @@ class ConnectedKanbanBoardContainer extends Component {
     }
 
     findTicketIndex = (ticketId) => {
-        return this.state.tickets.findIndex(ticket =>{
+        return this.props.tickets.findIndex(ticket =>{
             return ticket.id == ticketId;
         });
     };
@@ -148,40 +148,11 @@ class ConnectedKanbanBoardContainer extends Component {
 
     toggleTask = (ticketId, taskId) => {
         const ticketIndex = this.findTicketIndex(ticketId);
-        const taskIndex = this.findTaskIndex(taskId, this.state.tickets[ticketIndex]);
+        const taskIndex = this.findTaskIndex(taskId, this.props.tickets[ticketIndex]);
 
         if (ticketIndex != -1 && taskIndex != -1) {
-            const newStatus = !this.state.tickets[ticketIndex].tasks[taskIndex].done;
-
-            axios.post("http://localhost:8083/task/update/status", {
-                "ticketId": ticketId,
-                "taskId": taskId,
-                "done": newStatus
-            }).then(response => {
-                if (response.data.succeed) {
-                    const newTickets = update(this.state.tickets, {
-                        [ticketIndex]: {
-                            tasks: {
-                                [taskIndex]: {
-                                    done: {
-                                        $apply: done => {
-                                            return !done;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    });
-
-                    this.setState({
-                        tickets: newTickets
-                    });
-
-                    console.log(response.status);
-                }
-            }).catch(error => {
-                console.log(error);
-            });
+            const oldStatus = this.state.tickets[ticketIndex].tasks[taskIndex].done;
+            this.props.toggleTaskStatus(ticketId, taskId, oldStatus);
         }
     };
 
@@ -248,6 +219,6 @@ ConnectedKanbanBoardContainer.propTypes = {
     tickets: PropTypes.array.isRequired
 };
 
-const KanbanBoardContainer = connect(mapStateToProps, {loadTickets})(ConnectedKanbanBoardContainer);
+const KanbanBoardContainer = connect(mapStateToProps, {loadTickets, toggleTaskStatus})(ConnectedKanbanBoardContainer);
 
 export default KanbanBoardContainer;

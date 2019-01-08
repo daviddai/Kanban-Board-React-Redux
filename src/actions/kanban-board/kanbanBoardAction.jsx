@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import {ADD_TICKET, LOAD_TICKETS} from "../../constants/ActionTypes";
+import {ADD_TICKET, LOAD_TICKETS, TOGGLE_TASK_STATUS} from "../../constants/ActionTypes";
 import {TicketStatus} from "../../components/app/kanban-board/ticket/TicketStatus";
 
 const tickets = [
@@ -51,6 +51,34 @@ export const loadTickets = () => {
                             type: LOAD_TICKETS,
                             payload: tickets
                         });
+                    });
+    };
+};
+
+export const toggleTaskStatus = (ticketId, taskId, oldTaskStatus) => {
+    return (dispatch) => {
+        const newTaskStatus = !oldTaskStatus;
+        const toggleTaskRequest = {
+            "ticketId": ticketId,
+            "taskId": taskId,
+            "done": newTaskStatus
+        };
+
+        return axios.post("http://localhost:8083/task/update/status", toggleTaskRequest)
+                    .then(response => {
+                        if (response.data.succeed) {
+                            dispatch({
+                                type: TOGGLE_TASK_STATUS,
+                                payload: {
+                                    "ticketId": ticketId,
+                                    "taskId": taskId,
+                                    "done": newTaskStatus
+                                }
+                            });
+                        }
+                    })
+                    .catch(error => {
+                        console.log(error);
                     });
     };
 };
