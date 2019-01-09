@@ -32,10 +32,22 @@ const tickets = [
     }
 ];
 
-export const addTicket = (ticket) => ({
-   type: ADD_TICKET,
-   payload: ticket
-});
+export const addTicket = (ticket) => {
+    return (dispatch) => {
+        return axios.post("http://localhost:8083/ticket/create", ticket)
+                    .then(response => {
+                        dispatch({
+                            type: ADD_TICKET,
+                            payload: {
+                                ticket: response.data.ticketDTO
+                            }
+                        })
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
+    };
+};
 
 export const updateTicketStatus = (ticketId, newTicketStatus) => {
     return (dispatch) => {

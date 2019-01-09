@@ -1,5 +1,6 @@
 import {
     ADD_TASK,
+    ADD_TICKET,
     DELETE_TASK,
     LOAD_TICKETS,
     TOGGLE_TASK_STATUS,
@@ -12,6 +13,7 @@ export const kanbanBoardMiddleware = ({dispatch}) => {
     return (next) => {
         return (action) => {
             switch (action.type) {
+                case ADD_TICKET:
                 case LOAD_TICKETS:
                 case UPDATE_TICKET_STATUS:
                 case ADD_TASK:

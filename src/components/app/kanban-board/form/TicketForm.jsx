@@ -3,15 +3,17 @@ import PropTypes from "prop-types";
 
 import update from 'react-addons-update';
 import validator from "validator";
-import axios from "axios";
+
+import {connect} from "react-redux";
 
 import {CardHeader} from "../../../reusable/card/CardHeader";
 import {CardBody} from "../../../reusable/card/CardBody";
 import {CardFooter} from "../../../reusable/card/CardFooter";
 import {Card} from "../../../reusable/card/Card";
 import FormValidator from "../../../reusable/form/validator/FormValidator";
+import {addTicket} from "../../../../actions/kanban-board/kanbanBoardAction";
 
-export default class TicketForm extends Component {
+class ConnectedTicketForm extends Component {
 
     constructor(props) {
         super(props);
@@ -54,15 +56,7 @@ export default class TicketForm extends Component {
             ticketFormValidation: ticketFormValidation
         });
 
-        if (ticketFormValidation.isFormValid) {
-            axios.post("http://localhost:8083/ticket/create", this.state.ticket)
-                 .then(response => {
-                    console.log(response.data.ticketDTO);
-                 })
-                 .catch(error => {
-                     console.log(error);
-                 })
-        }
+        this.props.addTicket(this.state.ticket);
     };
 
     addNewTaskToTicket = (event) => {
@@ -201,7 +195,11 @@ export default class TicketForm extends Component {
 
 }
 
-TicketForm.propTypes = {
+ConnectedTicketForm.propTypes = {
     ticketCreatedCallback: PropTypes.func,
     ticketFormCancelledCallback: PropTypes.func
 };
+
+const TicketForm = connect(null, {addTicket})(ConnectedTicketForm);
+
+export default TicketForm;

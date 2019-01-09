@@ -17,6 +17,7 @@ const kanbanBoardReducer = (state = {tickets: []}, action) => {
 
     switch (action.type) {
         case ADD_TICKET:
+            return {tickets: addTicket(state.tickets, payload.ticket)};
         case LOAD_TICKETS:
             return {tickets: payload};
         case UPDATE_TICKET_STATUS:
@@ -32,6 +33,12 @@ const kanbanBoardReducer = (state = {tickets: []}, action) => {
         default:
             return state;
     }
+};
+
+const addTicket = (tickets, newTicket) => {
+    return update(tickets, {
+        $push: [newTicket]
+    });
 };
 
 const updateTicketStatus = (tickets, ticketId, newTicketStatus) => {
