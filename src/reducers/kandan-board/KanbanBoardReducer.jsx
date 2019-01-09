@@ -35,9 +35,7 @@ const kanbanBoardReducer = (state = {tickets: []}, action) => {
 
 const addTicket = (tickets, newTicket) => {
     if (newTicket != null) {
-        return update(tickets, {
-            $push: [newTicket]
-        });
+        return tickets.concat(newTicket);
     } else {
         return Object.assign([], tickets);
     }
