@@ -6,7 +6,8 @@ import {
     DELETE_TASK,
     LOAD_TICKETS,
     TOGGLE_TASK_STATUS,
-    UPDATE_TASK_NAME
+    UPDATE_TASK_NAME,
+    UPDATE_TICKET_STATUS
 } from "../../constants/ActionTypes";
 import {TicketStatus} from "../../components/app/kanban-board/ticket/TicketStatus";
 
@@ -35,6 +36,28 @@ export const addTicket = (ticket) => ({
    type: ADD_TICKET,
    payload: ticket
 });
+
+export const updateTicketStatus = (ticketId, newTicketStatus) => {
+    return (dispatch) => {
+        const updateTicketStatusRequest = {
+            ticketId: ticketId,
+            newTicketStatus: newTicketStatus
+        };
+
+        return axios.post('http://localhost:8083/ticket/update/status', updateTicketStatusRequest)
+                    .then(response => {
+                        if (response.status == 200) {
+                            dispatch({
+                                type: UPDATE_TICKET_STATUS,
+                                payload: updateTicketStatusRequest
+                            });
+                        }
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
+    };
+};
 
 export const loadTickets = () => {
     return (dispatch) => {

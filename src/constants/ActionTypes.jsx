@@ -1,5 +1,6 @@
 export const ADD_TICKET = "ADD_TICKET";
 export const LOAD_TICKETS = "LOAD_TICKETS";
+export const UPDATE_TICKET_STATUS = "UPDATE_TICKET_STATUS";
 
 export const ADD_TASK = "ADD_TASK";
 export const UPDATE_TASK_NAME = "UPDATE_TASK_NAME";
