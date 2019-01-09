@@ -196,7 +196,6 @@ class ConnectedTicketForm extends Component {
 }
 
 ConnectedTicketForm.propTypes = {
-    ticketCreatedCallback: PropTypes.func,
     ticketFormCancelledCallback: PropTypes.func
 };
 

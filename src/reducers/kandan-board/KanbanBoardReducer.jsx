@@ -13,11 +13,9 @@ import {TicketStatus} from "../../components/app/kanban-board/ticket/TicketStatu
 const kanbanBoardReducer = (state = {tickets: []}, action) => {
     const payload = action.payload;
 
-    console.log(payload);
-
     switch (action.type) {
         case ADD_TICKET:
-            return {tickets: addTicket(state.tickets, payload.ticket)};
+            return {tickets: addTicket(state.tickets, payload.ticket), ticketCreated: payload.succeed};
         case LOAD_TICKETS:
             return {tickets: payload};
         case UPDATE_TICKET_STATUS:
@@ -36,9 +34,13 @@ const kanbanBoardReducer = (state = {tickets: []}, action) => {
 };
 
 const addTicket = (tickets, newTicket) => {
-    return update(tickets, {
-        $push: [newTicket]
-    });
+    if (newTicket != null) {
+        return update(tickets, {
+            $push: [newTicket]
+        });
+    } else {
+        return Object.assign([], tickets);
+    }
 };
 
 const updateTicketStatus = (tickets, ticketId, newTicketStatus) => {

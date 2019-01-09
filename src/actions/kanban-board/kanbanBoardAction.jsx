@@ -39,12 +39,21 @@ export const addTicket = (ticket) => {
                         dispatch({
                             type: ADD_TICKET,
                             payload: {
+                                succeed: true,
                                 ticket: response.data.ticketDTO
                             }
-                        })
+                        });
                     })
                     .catch(error => {
                         console.log(error);
+
+                        dispatch({
+                            type: ADD_TICKET,
+                            payload: {
+                                succeed: false,
+                                ticket: null
+                            }
+                        });
                     });
     };
 };

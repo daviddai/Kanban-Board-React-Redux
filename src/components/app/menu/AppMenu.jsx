@@ -2,10 +2,26 @@ import React, {Component} from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
 
+import {connect} from "react-redux";
+
 import TopNavBar from "../../reusable/bar/top-bar/TopNavBar";
 import TicketModal from "../kanban-board/ticket/TicketModal";
 
-class AppMenu extends Component {
+const mapStateToProps = state => {
+    let ticketCreated;
+
+    if (state.ticketCreated === undefined) {
+        ticketCreated = false;
+    } else {
+        ticketCreated = state.ticketCreated;
+    }
+
+    return {
+        ticketCreated: ticketCreated
+    }
+};
+
+class ConnectedAppMenu extends Component {
 
     constructor(props) {
         super(props);
@@ -65,7 +81,7 @@ class AppMenu extends Component {
     };
 
     render() {
-        const showTicketModal = this.state.showTicketModal;
+        const showTicketModal = this.state.showTicketModal && !this.props.ticketCreated;
 
         return (
             <React.Fragment>
@@ -84,8 +100,11 @@ class AppMenu extends Component {
 
 }
 
-AppMenu.propTypes = {
-    menuItems: PropTypes.array
+ConnectedAppMenu.propTypes = {
+    menuItems: PropTypes.array,
+    ticketCreated: PropTypes.bool.isRequired
 };
+
+const AppMenu = connect(mapStateToProps)(ConnectedAppMenu);
 
 export default AppMenu;
