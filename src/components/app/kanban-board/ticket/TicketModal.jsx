@@ -17,7 +17,7 @@ export default class TicketModal extends Component {
         }
     };
 
-    notifyTicketCreation = (ticket) => {
+    notifyTicketCreation = () => {
 
     };
 
