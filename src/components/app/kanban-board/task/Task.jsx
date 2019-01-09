@@ -13,8 +13,8 @@ class Task extends Component {
         };
     }
 
-    toggleTask = () => {
-        this.props.taskCallbacks.toggle(this.props.ticketId, this.props.id);
+    toggleTask = (event) => {
+        this.props.taskCallbacks.toggle(this.props.ticketId, this.props.id, event.target.checked);
     };
 
     deleteTask = () => {

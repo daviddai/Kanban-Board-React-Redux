@@ -112,9 +112,8 @@ export const updateTaskName = (ticketId, taskId, newTaskName) => {
     }   ;
 };
 
-export const toggleTaskStatus = (ticketId, taskId, oldTaskStatus) => {
+export const toggleTaskStatus = (ticketId, taskId, newTaskStatus) => {
     return (dispatch) => {
-        const newTaskStatus = !oldTaskStatus;
         const toggleTaskRequest = {
             "ticketId": ticketId,
             "taskId": taskId,
@@ -126,16 +125,17 @@ export const toggleTaskStatus = (ticketId, taskId, oldTaskStatus) => {
                         if (response.data.succeed) {
                             dispatch({
                                 type: TOGGLE_TASK_STATUS,
-                                payload: {
-                                    "ticketId": ticketId,
-                                    "taskId": taskId,
-                                    "done": newTaskStatus
-                                }
+                                payload: toggleTaskRequest
                             });
                         }
                     })
                     .catch(error => {
                         console.log(error);
+
+                        dispatch({
+                            type: TOGGLE_TASK_STATUS,
+                            payload: toggleTaskRequest
+                        });
                     });
     };
 };

@@ -37,12 +37,6 @@ class ConnectedKanbanBoardContainer extends Component {
         });
     };
 
-    findTaskIndex = (taskId, ticket) => {
-        return ticket.tasks.findIndex(task => {
-            return task.id == taskId;
-        });
-    };
-
     addTicket = (ticket) => {
         const newTickets = update(this.state.tickets, {
             $push: [ticket]
@@ -65,14 +59,8 @@ class ConnectedKanbanBoardContainer extends Component {
         this.props.deleteTask(ticketId, taskId);
     };
 
-    toggleTask = (ticketId, taskId) => {
-        const ticketIndex = this.findTicketIndex(ticketId);
-        const taskIndex = this.findTaskIndex(taskId, this.props.tickets[ticketIndex]);
-
-        if (ticketIndex != -1 && taskIndex != -1) {
-            const oldStatus = this.props.tickets[ticketIndex].tasks[taskIndex].done;
-            this.props.toggleTaskStatus(ticketId, taskId, oldStatus);
-        }
+    toggleTask = (ticketId, taskId, taskNewStatus) => {
+        this.props.toggleTaskStatus(ticketId, taskId, taskNewStatus);
     };
 
     getTicketStatus = (status) => {
