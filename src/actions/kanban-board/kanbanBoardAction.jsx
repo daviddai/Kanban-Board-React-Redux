@@ -9,6 +9,7 @@ import {
     UPDATE_TASK_NAME,
     UPDATE_TICKET_STATUS
 } from "../../constants/ActionTypes";
+
 import {TicketStatus} from "../../components/app/kanban-board/ticket/TicketStatus";
 
 const tickets = [

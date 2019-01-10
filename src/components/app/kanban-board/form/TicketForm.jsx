@@ -12,6 +12,7 @@ import {CardFooter} from "../../../reusable/card/CardFooter";
 import {Card} from "../../../reusable/card/Card";
 import FormValidator from "../../../reusable/form/validator/FormValidator";
 import {addTicket} from "../../../../actions/kanban-board/kanbanBoardAction";
+import {TicketStatus} from "../ticket/TicketStatus";
 
 class ConnectedTicketForm extends Component {
 
@@ -22,6 +23,7 @@ class ConnectedTicketForm extends Component {
             ticket: {
                 ticketTitle: "",
                 ticketDescription: "",
+                ticketStatus: TicketStatus.todo,
                 taskNames: []
             },
             ticketFormValidation: {
