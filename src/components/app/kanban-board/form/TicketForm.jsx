@@ -23,7 +23,7 @@ class ConnectedTicketForm extends Component {
             ticket: {
                 ticketTitle: "",
                 ticketDescription: "",
-                ticketStatus: TicketStatus.todo,
+                ticketStatus: TicketStatus.todo.code,
                 taskNames: []
             },
             ticketFormValidation: {
@@ -57,6 +57,8 @@ class ConnectedTicketForm extends Component {
         this.setState({
             ticketFormValidation: ticketFormValidation
         });
+
+        console.log(this.state.ticket);
 
         this.props.addTicket(this.state.ticket);
     };

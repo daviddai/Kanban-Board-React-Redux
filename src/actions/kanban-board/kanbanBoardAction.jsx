@@ -37,11 +37,15 @@ export const addTicket = (ticket) => {
     return (dispatch) => {
         return axios.post("http://localhost:8083/ticket/create", ticket)
                     .then(response => {
+                        let ticketDTO = Object.assign({}, response.data.ticketDTO);
+                        const ticketStatusCode = ticketDTO.status;
+                        ticketDTO.status = getTicketSideColorByStatus(ticketStatusCode);
+
                         dispatch({
                             type: ADD_TICKET,
                             payload: {
                                 succeed: true,
-                                ticket: response.data.ticketDTO
+                                ticket: ticketDTO
                             }
                         });
                     })
