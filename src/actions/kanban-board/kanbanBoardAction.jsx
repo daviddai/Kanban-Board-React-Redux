@@ -90,15 +90,25 @@ export const loadTickets = () => {
         return axios.get("http://localhost:8083/ticket/all")
                     .then(
                         response => {
-                            const tickets = response.data.map(ticket => {
-                                ticket.status = getTicketSideColorByStatus(ticket.status);
-                                return ticket;
-                            });
+                            const responseBody = response.data;
+                            if (responseBody.succeed) {
+                                const tickets = responseBody.data.tickets.map(ticket => {
+                                    ticket.status = getTicketSideColorByStatus(ticket.status);
+                                    return ticket;
+                                });
 
-                            dispatch({
-                                type: LOAD_TICKETS,
-                                payload: tickets
-                            });
+                                dispatch({
+                                    type: LOAD_TICKETS,
+                                    payload: tickets
+                                });
+                            } else {
+                                console.log(responseBody);
+                                console.log("Succeed is false");
+                                dispatch({
+                                    type: LOAD_TICKETS,
+                                    payload: tickets
+                                });
+                            }
                     })
                     .catch(error => {
                         // use fall back data
