@@ -15,8 +15,9 @@ import {
 } from "../../../actions/kanban-board/kanbanBoardAction";
 
 const mapStateToProps = state => {
+    // https://stackoverflow.com/questions/35402389/combinereducers-causes-code-to-break
     return {
-        tickets: state.tickets
+        tickets: state.kanbanBoardReducer.tickets
     }
 };
 
