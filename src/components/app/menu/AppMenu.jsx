@@ -1,11 +1,11 @@
 import React, {Component} from "react";
-import axios from "axios";
 import PropTypes from "prop-types";
 
 import {connect} from "react-redux";
 
 import TopNavBar from "../../reusable/bar/top-bar/TopNavBar";
 import TicketModal from "../kanban-board/ticket/TicketModal";
+import {highlightNewSelectedMenuItem, loadAppMenuItems} from "../../../actions/app-menu/AppMenuAction";
 
 const mapStateToProps = state => {
     let ticketCreated;
@@ -17,6 +17,9 @@ const mapStateToProps = state => {
     }
 
     return {
+        menuItems: state.appMenuReducer.menuItems,
+        currentSelectedMenuItemId: state.appMenuReducer.currentSelectedMenuItemId,
+        showTicketModal: false,
         ticketCreated: ticketCreated
     }
 };
@@ -32,34 +35,8 @@ class ConnectedAppMenu extends Component {
         }
     }
 
-    loadAppMenu = () => {
-        axios.get("mockedUrl")
-             .then(response => {
-                 this.setState(
-                     {
-                         "menuItems": response.data,
-                         "currentSelectedMenuItemId": this.getMenuItemIdFromURI(response.data)
-                     }
-                 )
-             })
-             .catch(error => {
-                 console.log("AppMenu Error: " + error.message);
-                 this.setState(
-                     {
-                         "menuItems": this.props.menuItems,
-                         "currentSelectedMenuItemId": this.getMenuItemIdFromURI(this.props.menuItems)
-                     }
-                 )
-             });
-    };
-
-    getMenuItemIdFromURI = (menuItems) => {
-        const uri = window.location.pathname;
-        return menuItems.find(item => '/' + item.uri === uri).id;
-    };
-
     componentDidMount() {
-        this.loadAppMenu();
+        this.props.loadAppMenuItems();
     }
 
     handleMenuItemClick = (menuItemId) => {
@@ -85,8 +62,8 @@ class ConnectedAppMenu extends Component {
 
         return (
             <React.Fragment>
-                <TopNavBar navItems={this.state.menuItems}
-                           highlightNavItemId={this.state.currentSelectedMenuItemId}
+                <TopNavBar navItems={this.props.menuItems}
+                           highlightNavItemId={this.props.currentSelectedMenuItemId}
                            handleNavItemClick={this.handleMenuItemClick}
                            handleButtonClick={this.handleMenuButtonClick}
                 />
@@ -105,6 +82,10 @@ ConnectedAppMenu.propTypes = {
     ticketCreated: PropTypes.bool.isRequired
 };
 
-const AppMenu = connect(mapStateToProps)(ConnectedAppMenu);
+const AppMenu = connect(mapStateToProps,
+                       {
+                           loadAppMenuItems,
+                           highlightNewSelectedMenuItem
+                       })(ConnectedAppMenu);
 
 export default AppMenu;
