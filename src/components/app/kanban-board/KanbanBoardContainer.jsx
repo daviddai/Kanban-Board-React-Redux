@@ -16,7 +16,7 @@ import {
 
 const mapStateToProps = state => {
     return {
-        tickets: state.tickets
+        tickets: state.kanbanBoardReducer.tickets
     }
 };
 
