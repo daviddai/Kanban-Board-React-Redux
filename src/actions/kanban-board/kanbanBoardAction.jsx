@@ -158,12 +158,12 @@ export const updateTaskName = (ticketId, taskId, newTaskName) => {
 
         return axios.post("http://localhost:8083/task/update/name", updateTaskNameRequest)
                     .then(response => {
-                            if (response.data.succeed) {
-                                dispatch({
-                                    type: UPDATE_TASK_NAME,
-                                    payload: updateTaskNameRequest
-                                })
-                            }
+                        if (response.data.succeed) {
+                            dispatch({
+                                type: UPDATE_TASK_NAME,
+                                payload: updateTaskNameRequest
+                            })
+                        }
                     })
                     .catch(error => {
                         console.log(error);

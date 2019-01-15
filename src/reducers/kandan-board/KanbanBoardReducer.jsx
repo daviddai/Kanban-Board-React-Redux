@@ -69,7 +69,7 @@ const updateTaskName = (tickets, ticketId, taskId, newTaskName) => {
     const ticketIndex = findTicketIndex(ticketId, tickets);
     const taskIndex = findTaskIndex(taskId, tickets[ticketIndex].tasks);
 
-    return update(this.state.tickets, {
+    return update(tickets, {
         [ticketIndex]: {
             tasks: {
                 [taskIndex]: {
