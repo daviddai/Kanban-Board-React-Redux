@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import {LOAD_MENU_ITEMS} from "../../constants/ActionTypes";
+import {CHANGE_MENU_ITEM, LOAD_MENU_ITEMS} from "../../constants/ActionTypes";
 
 const menuItems = [
     {
@@ -48,8 +48,13 @@ export const loadAppMenuItems = () => {
     };
 };
 
-export const highlightNewSelectedMenuItem = () => {
-
+export const highlightNewSelectedMenuItem = (menuItemId, dispatch) => {
+    dispatch({
+        type: CHANGE_MENU_ITEM,
+        payload: {
+            currentSelectedMenuItemId: menuItemId
+        }
+    });
 };
 
 const getMenuItemIdFromURI = (menuItems) => {

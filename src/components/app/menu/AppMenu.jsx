@@ -38,9 +38,7 @@ class ConnectedAppMenu extends Component {
     }
 
     handleMenuItemClick = (menuItemId) => {
-        this.setState({
-            currentSelectedMenuItemId: menuItemId
-        })
+        highlightNewSelectedMenuItem(menuItemId);
     };
 
     handleMenuButtonClick = () => {

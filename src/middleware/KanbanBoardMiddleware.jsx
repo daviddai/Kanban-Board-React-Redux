@@ -1,6 +1,7 @@
 import {
     ADD_TASK,
     ADD_TICKET,
+    CHANGE_MENU_ITEM,
     DELETE_TASK,
     LOAD_MENU_ITEMS,
     LOAD_TICKETS,
@@ -22,6 +23,7 @@ export const kanbanBoardMiddleware = ({dispatch}) => {
                 case TOGGLE_TASK_STATUS:
                 case DELETE_TASK:
                 case LOAD_MENU_ITEMS:
+                case CHANGE_MENU_ITEM:
                     return next(action);
                 default:
                     action.payload = [];

@@ -5,7 +5,8 @@ const appMenuReducer = (state = {menuItems: [], currentSelectedMenuItemId: -1}, 
         case LOAD_MENU_ITEMS:
             return action.payload;
         case CHANGE_MENU_ITEM:
-
+            console.log("change menu item");
+            return action.payload;
         default:
             return state;
     }
