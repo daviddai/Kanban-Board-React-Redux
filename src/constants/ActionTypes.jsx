@@ -8,4 +8,3 @@ export const TOGGLE_TASK_STATUS = "TOGGLE_TASK_STATUS";
 export const DELETE_TASK = "DELETE_TASK";
 
 export const LOAD_MENU_ITEMS = "LOAD_MENU_ITEMS";
-export const CHANGE_MENU_ITEM = "CHANGE_MENU_ITEM";

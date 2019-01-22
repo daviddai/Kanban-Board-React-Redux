@@ -5,7 +5,7 @@ import {connect} from "react-redux";
 
 import TopNavBar from "../../reusable/bar/top-bar/TopNavBar";
 import TicketModal from "../kanban-board/ticket/TicketModal";
-import {highlightNewSelectedMenuItem, loadAppMenuItems} from "../../../actions/app-menu/AppMenuAction";
+import {loadAppMenuItems} from "../../../actions/app-menu/AppMenuAction";
 
 const mapStateToProps = state => {
     let ticketCreated;
@@ -18,7 +18,6 @@ const mapStateToProps = state => {
 
     return {
         menuItems: state.appMenuReducer.menuItems,
-        currentSelectedMenuItemId: state.appMenuReducer.currentSelectedMenuItemId,
         showTicketModal: false,
         ticketCreated: ticketCreated
     }
@@ -34,11 +33,17 @@ class ConnectedAppMenu extends Component {
     }
 
     componentDidMount() {
-        this.props.loadAppMenuItems();
+        this.props.loadAppMenuItems(this.highlightMenuItem);
     }
 
     handleMenuItemClick = (menuItemId) => {
-        highlightNewSelectedMenuItem(menuItemId);
+        this.highlightMenuItem(menuItemId);
+    };
+
+    highlightMenuItem = (menuItemId) => {
+        this.setState({
+            currentSelectedMenuItemId: menuItemId
+        });
     };
 
     handleMenuButtonClick = () => {
@@ -59,7 +64,7 @@ class ConnectedAppMenu extends Component {
         return (
             <React.Fragment>
                 <TopNavBar navItems={this.props.menuItems}
-                           highlightNavItemId={this.props.currentSelectedMenuItemId}
+                           highlightNavItemId={this.state.currentSelectedMenuItemId}
                            handleNavItemClick={this.handleMenuItemClick}
                            handleButtonClick={this.handleMenuButtonClick}
                 />
@@ -80,8 +85,7 @@ ConnectedAppMenu.propTypes = {
 
 const AppMenu = connect(mapStateToProps,
                        {
-                           loadAppMenuItems,
-                           highlightNewSelectedMenuItem
+                           loadAppMenuItems
                        })(ConnectedAppMenu);
 
 export default AppMenu;

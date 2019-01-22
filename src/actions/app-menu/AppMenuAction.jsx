@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import {CHANGE_MENU_ITEM, LOAD_MENU_ITEMS} from "../../constants/ActionTypes";
+import {LOAD_MENU_ITEMS} from "../../constants/ActionTypes";
 
 const menuItems = [
     {
@@ -28,7 +28,7 @@ const menuItems = [
     }
 ];
 
-export const loadAppMenuItems = () => {
+export const loadAppMenuItems = (highlightMenuItem) => {
     return (dispatch) => {
         return axios.get("mockUrl")
                     .then(response => {
@@ -40,21 +40,13 @@ export const loadAppMenuItems = () => {
                         dispatch({
                             type: LOAD_MENU_ITEMS,
                             payload: {
-                                menuItems: menuItems,
-                                currentSelectedMenuItemId: getMenuItemIdFromURI(menuItems)
+                                menuItems: menuItems
                             }
                         });
+
+                        highlightMenuItem(getMenuItemIdFromURI(menuItems));
                     });
     };
-};
-
-export const highlightNewSelectedMenuItem = (menuItemId, dispatch) => {
-    dispatch({
-        type: CHANGE_MENU_ITEM,
-        payload: {
-            currentSelectedMenuItemId: menuItemId
-        }
-    });
 };
 
 const getMenuItemIdFromURI = (menuItems) => {
