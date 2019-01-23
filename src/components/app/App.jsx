@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {BrowserRouter, Redirect, Route, Switch} from 'react-router-dom';
+import {BrowserRouter, Route, Switch} from 'react-router-dom';
 
 import KanbanBoardContainer from "./kanban-board/KanbanBoardContainer";
 
@@ -10,6 +10,7 @@ import "./app.css";
 import AppMenu from "./menu/AppMenu";
 import DashboardContainer from "./dashboard/DashboardContainer";
 import UserLoginPage from "./user/login/UserLoginPage";
+import {PrivateRoute} from "../reusable/route/PrivateRoute";
 
 class App extends Component {
 
@@ -18,12 +19,6 @@ class App extends Component {
     }
 
     render() {
-        let allRoutesToLogin = null;
-
-        if (localStorage.getItem("user") == null) {
-            allRoutesToLogin = <Redirect to={{ pathname: "/login" }}/>
-        }
-
         return (
             <BrowserRouter>
                 <div className="app">
@@ -32,14 +27,11 @@ class App extends Component {
                         <Route path="/login"
                                component={UserLoginPage}
                         />
-                        {allRoutesToLogin}
-                        <Route path="/kanban"
-                               render={
-                                   () => (<KanbanBoardContainer />)
-                               }
+                        <PrivateRoute path="/kanban"
+                                      component={KanbanBoardContainer}
                         />
-                        <Route path="/dashboard"
-                               component={DashboardContainer}
+                        <PrivateRoute path="/dashboard"
+                                      component={DashboardContainer}
                         />
                     </Switch>
                 </div>

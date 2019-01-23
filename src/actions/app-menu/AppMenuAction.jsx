@@ -16,12 +16,6 @@ const menuItems = [
         type: 'link'
     },
     {
-        id: 3,
-        title: 'Others',
-        uri:'others',
-        type: 'link'
-    },
-    {
         id: 4,
         name: 'Create',
         type: 'button'

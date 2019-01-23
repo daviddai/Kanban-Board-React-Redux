@@ -42,7 +42,7 @@ class ConnectedAppMenu extends Component {
 
     highlightMenuItem = (menuItemId) => {
         this.setState({
-            currentSelectedMenuItemId: menuItemId
+            currentSelectedMenuItemId: parseInt(menuItemId)
         });
     };
 
