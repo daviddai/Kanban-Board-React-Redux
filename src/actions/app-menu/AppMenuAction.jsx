@@ -51,5 +51,5 @@ export const loadAppMenuItems = (highlightMenuItem) => {
 
 const getMenuItemIdFromURI = (menuItems) => {
     const uri = window.location.pathname;
-    return menuItems.find(item => '/' + item.uri === uri).id;
+    return menuItems.find(item => '/' + item.uri === uri);
 };
