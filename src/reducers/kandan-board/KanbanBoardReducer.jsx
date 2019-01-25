@@ -17,7 +17,6 @@ const kanbanBoardReducer = (state = {tickets: []}, action) => {
         case ADD_TICKET:
             return {tickets: addTicket(state.tickets, payload.ticket), ticketCreated: payload.succeed};
         case LOAD_TICKETS:
-            console.log("kanbanBoardReducer load ticket");
             return {tickets: payload};
         case UPDATE_TICKET_STATUS:
             return {tickets: updateTicketStatus(state.tickets, payload.ticketId, payload.newTicketStatus)};

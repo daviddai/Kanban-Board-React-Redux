@@ -1,12 +1,21 @@
 import React, {Component} from "react";
+
 import {Card} from "../../../reusable/card/Card";
 import {CardHeader} from "../../../reusable/card/CardHeader";
 import {CardBody} from "../../../reusable/card/CardBody";
 import {CardFooter} from "../../../reusable/card/CardFooter";
 
 import "./style/login.css";
+import {connect} from "react-redux";
+import {authenticateUser} from "../../../../actions/user/UserAction";
 
-class UserLoginPage extends Component {
+const mapStateToProps = state => {
+    return {
+
+    }
+};
+
+class ConnectedUserLoginPage extends Component {
 
     constructor(props) {
         super(props);
@@ -29,7 +38,7 @@ class UserLoginPage extends Component {
 
     login = (event) => {
         event.preventDefault();
-        console.log(this.state);
+        this.props.authenticateUser(this.state.loginForm);
     };
 
     render() {
@@ -75,5 +84,11 @@ class UserLoginPage extends Component {
         );
     }
 }
+
+ConnectedUserLoginPage.propTypes = {
+
+};
+
+const UserLoginPage = connect(mapStateToProps, {authenticateUser})(ConnectedUserLoginPage);
 
 export default UserLoginPage;
