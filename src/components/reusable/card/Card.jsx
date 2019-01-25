@@ -13,5 +13,7 @@ Card.propTypes = {
     children: PropTypes.oneOfType([
         PropTypes.arrayOf(PropTypes.node),
         PropTypes.node
-    ]).isRequired
+    ]).isRequired,
+    className: PropTypes.string,
+    style: PropTypes.string
 };
