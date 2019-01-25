@@ -8,9 +8,33 @@ import "./style/login.css";
 
 class UserLoginPage extends Component {
 
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            loginForm: {
+                email: null,
+                password: null
+            }
+        };
+    }
+
+    updateEmail = (event) => {
+        this.setState({loginForm: {...this.state.loginForm, email: event.target.value}});
+    };
+
+    updatePassword = (event) => {
+        this.setState({loginForm: {...this.state.loginForm, password: event.target.value}});
+    };
+
+    login = (event) => {
+        event.preventDefault();
+        console.log(this.state);
+    };
+
     render() {
         return (
-            <form>
+            <form onSubmit={this.login}>
                 <Card className="login-card mx-auto">
                     <CardHeader>
                         <h3 className="text-center">
@@ -24,6 +48,7 @@ class UserLoginPage extends Component {
                                 <input id="email"
                                        type="text"
                                        className="form-control"
+                                       onChange={this.updateEmail}
                                 />
                             </div>
                         </div>
@@ -33,13 +58,16 @@ class UserLoginPage extends Component {
                                 <input id="password"
                                        type="password"
                                        className="form-control"
+                                       onChange={this.updatePassword}
                                 />
                             </div>
                         </div>
                     </CardBody>
                     <CardFooter>
                         <div className="pull-right">
-                            <button>Login</button>
+                            <input type="submit"
+                                   value="Login"
+                            />
                         </div>
                     </CardFooter>
                 </Card>
