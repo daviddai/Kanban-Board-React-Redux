@@ -1,7 +1,9 @@
 import React, {Component} from "react";
-import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import {Route, Router, Switch} from 'react-router-dom';
 
 import KanbanBoardContainer from "./kanban-board/KanbanBoardContainer";
+
+import history from "../reusable/route/AppHistory";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "font-awesome/css/font-awesome.min.css";
@@ -20,7 +22,7 @@ class App extends Component {
 
     render() {
         return (
-            <BrowserRouter>
+            <Router history={history}>
                 <div className="app">
                     <AppMenu />
                     <Switch>
@@ -35,7 +37,7 @@ class App extends Component {
                         />
                     </Switch>
                 </div>
-            </BrowserRouter>
+            </Router>
         );
     }
 

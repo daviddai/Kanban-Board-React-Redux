@@ -1,4 +1,4 @@
-import update from 'react-addons-update';
+import update from "react-addons-update";
 
 import {USER_LOGIN} from "../../constants/ActionTypes";
 
@@ -30,5 +30,6 @@ const updateUser = (user, userLoginResponse) => {
         return state;
     }
 };
+
 
 export default userReducer;
