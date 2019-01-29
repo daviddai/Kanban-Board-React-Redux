@@ -58,8 +58,6 @@ class ConnectedTicketForm extends Component {
             ticketFormValidation: ticketFormValidation
         });
 
-        console.log(this.state.ticket);
-
         this.props.addTicket(this.state.ticket);
     };
 

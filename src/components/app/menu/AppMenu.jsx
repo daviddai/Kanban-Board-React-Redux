@@ -13,12 +13,11 @@ const mapStateToProps = state => {
     if (state.ticketCreated === undefined) {
         ticketCreated = false;
     } else {
-        ticketCreated = state.ticketCreated;
+        ticketCreated = state.kanbanBoardReducer.ticketCreated;
     }
 
     return {
         menuItems: state.appMenuReducer.menuItems,
-        showTicketModal: false,
         ticketCreated: ticketCreated
     }
 };
