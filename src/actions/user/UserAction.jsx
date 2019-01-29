@@ -1,21 +1,19 @@
 import axios from "axios";
 import {USER_LOGIN} from "../../constants/ActionTypes";
 
-export const authenticateUser = (user) => {
-    return (dispatch) => {
-        return axios.post("mockUrl", user)
-            .then(response => {
+export const authenticateUser = user => dispatch => {
+    return axios.post("mockUrl", user)
+        .then(response => {
 
-            })
-            .catch(error => {
-                console.log(error);
+        })
+        .catch(error => {
+            console.log(error);
 
-                dispatch({
-                    type: USER_LOGIN,
-                    payload: {
-                        succeed: true
-                    }
-                });
+            dispatch({
+                type: USER_LOGIN,
+                payload: {
+                    succeed: true
+                }
             });
-    };
+        });
 };

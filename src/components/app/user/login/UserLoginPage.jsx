@@ -1,5 +1,7 @@
 import React, {Component} from "react";
 
+import PropTypes from "prop-types";
+
 import {Card} from "../../../reusable/card/Card";
 import {CardHeader} from "../../../reusable/card/CardHeader";
 import {CardBody} from "../../../reusable/card/CardBody";
@@ -8,10 +10,14 @@ import {CardFooter} from "../../../reusable/card/CardFooter";
 import "./style/login.css";
 import {connect} from "react-redux";
 import {authenticateUser} from "../../../../actions/user/UserAction";
+import {Redirect} from "react-router";
 
 const mapStateToProps = state => {
-    return {
+    console.log(state);
 
+    return {
+        isAuthenticated: state.userReducer.isAuthenticated,
+        redirectTo: state.appMenuReducer.currentMenuItem === undefined ? '/dashboard' : state.appMenuReducer.currentMenuItem.uri
     }
 };
 
@@ -42,6 +48,12 @@ class ConnectedUserLoginPage extends Component {
     };
 
     render() {
+        console.log(this.props.isAuthenticated);
+
+        if (this.props.isAuthenticated) {
+            return <Redirect to={this.props.redirectTo} />;
+        }
+
         return (
             <form onSubmit={this.login}>
                 <Card className="login-card mx-auto">
@@ -86,7 +98,8 @@ class ConnectedUserLoginPage extends Component {
 }
 
 ConnectedUserLoginPage.propTypes = {
-
+    isAuthenticated: PropTypes.bool.isRequired,
+    redirectTo: PropTypes.string.isRequired
 };
 
 const UserLoginPage = connect(mapStateToProps, {authenticateUser})(ConnectedUserLoginPage);
