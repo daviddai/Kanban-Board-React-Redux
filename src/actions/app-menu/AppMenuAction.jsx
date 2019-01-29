@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import {LOAD_MENU_ITEMS} from "../../constants/ActionTypes";
+import {LOAD_MENU_ITEMS, SELECT_MENU_ITEM} from "../../constants/ActionTypes";
 
 const menuItems = [
     {
@@ -21,6 +21,15 @@ const menuItems = [
         type: 'button'
     }
 ];
+
+export const changeAppMenuItem = (menuItemId) => dispatch => {
+    dispatch({
+        type: SELECT_MENU_ITEM,
+        payload: {
+            menuItemId: menuItemId
+        }
+    });
+};
 
 export const loadAppMenuItems = (highlightMenuItem) => {
     return (dispatch) => {

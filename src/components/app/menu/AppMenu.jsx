@@ -5,19 +5,22 @@ import {connect} from "react-redux";
 
 import TopNavBar from "../../reusable/bar/top-bar/TopNavBar";
 import TicketModal from "../kanban-board/ticket/TicketModal";
-import {loadAppMenuItems} from "../../../actions/app-menu/AppMenuAction";
+import {changeAppMenuItem, loadAppMenuItems} from "../../../actions/app-menu/AppMenuAction";
 
 const mapStateToProps = state => {
     let ticketCreated;
 
-    if (state.ticketCreated === undefined) {
+    if (state.kanbanBoardReducer.ticketCreated === undefined) {
         ticketCreated = false;
     } else {
         ticketCreated = state.kanbanBoardReducer.ticketCreated;
     }
 
+    console.log(state.appMenuReducer.currentMenuItem);
+
     return {
         menuItems: state.appMenuReducer.menuItems,
+        currentMenuItem: state.appMenuReducer.currentMenuItem,
         ticketCreated: ticketCreated
     }
 };
@@ -36,6 +39,7 @@ class ConnectedAppMenu extends Component {
     }
 
     handleMenuItemClick = (menuItemId) => {
+        this.props.changeAppMenuItem(menuItemId);
         this.highlightMenuItem(menuItemId);
     };
 
@@ -84,7 +88,8 @@ ConnectedAppMenu.propTypes = {
 
 const AppMenu = connect(mapStateToProps,
                        {
-                           loadAppMenuItems
+                           loadAppMenuItems,
+                           changeAppMenuItem
                        })(ConnectedAppMenu);
 
 export default AppMenu;

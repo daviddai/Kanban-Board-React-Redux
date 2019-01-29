@@ -5,6 +5,7 @@ import {
     DELETE_TASK,
     LOAD_MENU_ITEMS,
     LOAD_TICKETS,
+    SELECT_MENU_ITEM,
     TOGGLE_TASK_STATUS,
     UPDATE_TASK_NAME,
     UPDATE_TICKET_STATUS,
@@ -24,7 +25,7 @@ export const kanbanBoardMiddleware = ({dispatch}) => {
                 case TOGGLE_TASK_STATUS:
                 case DELETE_TASK:
                 case LOAD_MENU_ITEMS:
-                case CHANGE_MENU_ITEM:
+                case SELECT_MENU_ITEM:
                 case USER_LOGIN:
                     return next(action);
                 default:
