@@ -31,25 +31,23 @@ export const changeAppMenuItem = (menuItemId) => dispatch => {
     });
 };
 
-export const loadAppMenuItems = (highlightMenuItem) => {
-    return (dispatch) => {
-        return axios.get("mockUrl")
-                    .then(response => {
+export const loadAppMenuItems = (highlightMenuItem) => dispatch => {
+    return axios.get("mockUrl")
+        .then(response => {
 
-                    })
-                    .catch(error => {
-                        console.log(error);
+        })
+        .catch(error => {
+            console.log(error);
 
-                        dispatch({
-                            type: LOAD_MENU_ITEMS,
-                            payload: {
-                                menuItems: menuItems
-                            }
-                        });
+            dispatch({
+                type: LOAD_MENU_ITEMS,
+                payload: {
+                    menuItems: menuItems
+                }
+            });
 
-                        highlightMenuItem(getMenuItemIdFromURI(menuItems));
-                    });
-    };
+            highlightMenuItem(getMenuItemIdFromURI(menuItems));
+        });
 };
 
 const getMenuItemIdFromURI = (menuItems) => {

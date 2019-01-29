@@ -16,8 +16,6 @@ const mapStateToProps = state => {
         ticketCreated = state.kanbanBoardReducer.ticketCreated;
     }
 
-    console.log(state.appMenuReducer.currentMenuItem);
-
     return {
         menuItems: state.appMenuReducer.menuItems,
         currentMenuItem: state.appMenuReducer.currentMenuItem,
@@ -40,7 +38,6 @@ class ConnectedAppMenu extends Component {
 
     handleMenuItemClick = (menuItemId) => {
         this.props.changeAppMenuItem(menuItemId);
-        this.highlightMenuItem(menuItemId);
     };
 
     highlightMenuItem = (menuItemId) => {
@@ -63,11 +60,12 @@ class ConnectedAppMenu extends Component {
 
     render() {
         const showTicketModal = this.state.showTicketModal && !this.props.ticketCreated;
+        const currentSelectedMenuItemId = this.props.currentMenuItem  === undefined ? -1 : this.props.currentMenuItem.id;
 
         return (
             <React.Fragment>
                 <TopNavBar navItems={this.props.menuItems}
-                           highlightNavItemId={this.state.currentSelectedMenuItemId}
+                           highlightNavItemId={currentSelectedMenuItemId}
                            handleNavItemClick={this.handleMenuItemClick}
                            handleButtonClick={this.handleMenuButtonClick}
                 />
@@ -83,6 +81,7 @@ class ConnectedAppMenu extends Component {
 
 ConnectedAppMenu.propTypes = {
     menuItems: PropTypes.array,
+    currentMenuItem: PropTypes.object,
     ticketCreated: PropTypes.bool.isRequired
 };
 
