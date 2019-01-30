@@ -27,7 +27,7 @@ const updateUser = (user, userLoginResponse) => {
             }
         });
     } else {
-        return state;
+        return user;
     }
 };
 

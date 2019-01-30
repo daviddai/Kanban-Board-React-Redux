@@ -13,8 +13,6 @@ import {authenticateUser} from "../../../../actions/user/UserAction";
 import {Redirect} from "react-router";
 
 const mapStateToProps = state => {
-    console.log(state);
-
     return {
         isAuthenticated: state.userReducer.isAuthenticated,
         redirectTo: state.appMenuReducer.currentMenuItem === undefined ? '/dashboard' : state.appMenuReducer.currentMenuItem.uri
@@ -48,8 +46,6 @@ class ConnectedUserLoginPage extends Component {
     };
 
     render() {
-        console.log(this.props.isAuthenticated);
-
         if (this.props.isAuthenticated) {
             return <Redirect to={this.props.redirectTo} />;
         }
