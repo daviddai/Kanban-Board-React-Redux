@@ -27,7 +27,6 @@ class Task extends Component {
         });
 
         if (!isEditing) {
-            console.log(newTaskName);
             this.props.taskCallbacks.changeTaskName(this.props.ticketId, this.props.id, newTaskName);
         }
     };

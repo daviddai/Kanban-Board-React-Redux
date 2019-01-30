@@ -1,8 +1,6 @@
 import React, {Component} from "react";
 import PropTypes from "prop-types";
 import KanbanBoard from "./KanbanBoard";
-import update from 'react-addons-update';
-
 import {connect} from "react-redux";
 
 import {
@@ -29,16 +27,6 @@ class ConnectedKanbanBoardContainer extends Component {
     componentDidMount() {
         this.props.loadTickets();
     }
-
-    addTicket = (ticket) => {
-        const newTickets = update(this.state.tickets, {
-            $push: [ticket]
-        });
-
-        this.setState({
-            tickets: newTickets
-        });
-    };
 
     addTask = (ticketId, taskName) => {
         this.props.addTask(ticketId, taskName);

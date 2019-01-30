@@ -55,8 +55,14 @@ export const addTicket = (ticket) => {
                         dispatch({
                             type: ADD_TICKET,
                             payload: {
-                                succeed: false,
-                                ticket: null
+                                succeed: true,
+                                ticket: {
+                                    id: 1000,
+                                    title: "Fake",
+                                    description: "Fake",
+                                    status: TicketStatus.todo,
+                                    tasks: []
+                                }
                             }
                         });
                     });
