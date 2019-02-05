@@ -49,7 +49,12 @@ class ConnectedUserLoginPage extends Component {
     };
 
     render() {
-        if (this.props.isAuthenticated) {
+
+        console.log("RENDER");
+
+        const user = localStorage.getItem("user") !== undefined ? JSON.parse(localStorage.getItem("user")) : null;
+
+        if (user != null && user.succeed) {
             return <Redirect to={this.props.redirectTo} />;
         }
 
